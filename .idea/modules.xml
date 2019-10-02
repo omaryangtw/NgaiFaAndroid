@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PhahTaigi_Android.iml" filepath="$PROJECT_DIR$/PhahTaigi_Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Projects.iml" filepath="$PROJECT_DIR$/.idea/modules/Projects.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/Projects.app.iml" filepath="$PROJECT_DIR$/app/Projects.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/realm_db_installer/Projects.realm_db_installer.iml" filepath="$PROJECT_DIR$/realm_db_installer/Projects.realm_db_installer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tailo_realm_model/Projects.tailo_realm_model.iml" filepath="$PROJECT_DIR$/tailo_realm_model/Projects.tailo_realm_model.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tailo_realm_parser_app/Projects.tailo_realm_parser_app.iml" filepath="$PROJECT_DIR$/tailo_realm_parser_app/Projects.tailo_realm_parser_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Projects.iml" filepath="$PROJECT_DIR$/.idea/Projects.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/realm_db_installer/realm_db_installer.iml" filepath="$PROJECT_DIR$/realm_db_installer/realm_db_installer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tailo_realm_model/tailo_realm_model.iml" filepath="$PROJECT_DIR$/tailo_realm_model/tailo_realm_model.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tailo_realm_parser_app/tailo_realm_parser_app.iml" filepath="$PROJECT_DIR$/tailo_realm_parser_app/tailo_realm_parser_app.iml" />
     </modules>
   </component>
 </project>

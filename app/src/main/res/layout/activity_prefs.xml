@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ccc"
     android:orientation="vertical"
-    tools:context="com.taccotap.phahtaigi.preferences.ImePreferences">
+    tools:context="com.ngaifa.hakka.preferences.ImePreferences">
 
     <LinearLayout
         android:layout_width="match_parent"

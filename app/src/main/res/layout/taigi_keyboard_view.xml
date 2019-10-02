@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.taccotap.phahtaigi.ime.keyboard.TaigiKeyboardView
+<com.ngaifa.hakka.ime.keyboard.HakkaKeyboardView
     android:id="@+id/taigiKeyboardView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

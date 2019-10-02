@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/keyboard_background_lxx_dark"
     android:scrollbars="vertical"
-    tools:context="com.taccotap.phahtaigi.preferences.MoreSettingsActivity">
+    tools:context="com.ngaifa.hakka.preferences.MoreSettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
