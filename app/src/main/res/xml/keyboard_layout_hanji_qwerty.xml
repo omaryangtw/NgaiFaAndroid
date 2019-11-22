@@ -42,41 +42,18 @@
     </Row>
 
     <Row>
-        <Key
-            android:codes="113"
-            android:keyEdgeFlags="left"
-            android:keyLabel="q"/>
-        <Key
-            android:codes="119"
-            android:keyLabel="w"/>
-        <Key
-            android:codes="101"
-            android:keyLabel="e"/>
-        <Key
-            android:codes="114"
-            android:keyLabel="r"/>
-        <Key
-            android:codes="116"
-            android:keyLabel="t"/>
-        <Key
-            android:codes="121"
-            android:keyLabel="y"/>
-        <Key
-            android:codes="117"
-            android:keyLabel="u"/>
-        <Key
-            android:codes="105"
-            android:keyLabel="i"/>
-        <Key
-            android:codes="111"
-            android:keyLabel="o"/>
-        <Key
-            android:codes="112"
-            android:keyEdgeFlags="right"
-            android:keyLabel="p"/>
+        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:keyLabel="w"/>
+        <Key android:codes="101" android:keyLabel="e"/>
+        <Key android:codes="114" android:keyLabel="r"/>
+        <Key android:codes="116" android:keyLabel="t"/>
+        <Key android:codes="121" android:keyLabel="y"/>
+        <Key android:codes="117" android:keyLabel="u"/>
+        <Key android:codes="105" android:keyLabel="i"/>
+        <Key android:codes="111" android:keyLabel="o"/>
+        <Key android:codes="112" android:keyLabel="p" android:keyEdgeFlags="right"/>
     </Row>
 
-    <Row>
         <!--
              android:codes: -2000 is not a framework-defined key code
         -->
@@ -84,38 +61,17 @@
         <!--android:codes="-2000"-->
         <!--android:keyIcon="@drawable/sym_keyboard_settings"-->
         <!--android:keyWidth="10%p"/>-->
-        <Key
-            android:codes="97"
-            android:keyEdgeFlags="left"
-            android:keyLabel="a"/>
-        <Key
-            android:codes="115"
-            android:keyLabel="s"/>
-        <Key
-            android:codes="100"
-            android:keyLabel="d"/>
-        <Key
-            android:codes="102"
-            android:keyLabel="f"/>
-        <Key
-            android:codes="103"
-            android:keyLabel="g"/>
-        <Key
-            android:codes="104"
-            android:keyLabel="h"/>
-        <Key
-            android:codes="106"
-            android:keyLabel="j"/>
-        <Key
-            android:codes="107"
-            android:keyLabel="k"/>
-        <Key
-            android:codes="108"
-            android:keyLabel="l"/>
-        <Key
-            android:codes="65311"
-            android:keyEdgeFlags="right"
-            android:keyLabel="？"/>
+    <Row>
+        <Key android:codes="97" android:keyLabel="a" android:horizontalGap="5%p"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="115" android:keyLabel="s"/>
+        <Key android:codes="100" android:keyLabel="d"/>
+        <Key android:codes="102" android:keyLabel="f"/>
+        <Key android:codes="103" android:keyLabel="g"/>
+        <Key android:codes="104" android:keyLabel="h"/>
+        <Key android:codes="106" android:keyLabel="j"/>
+        <Key android:codes="107" android:keyLabel="k"/>
+        <Key android:codes="108" android:keyLabel="l" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>

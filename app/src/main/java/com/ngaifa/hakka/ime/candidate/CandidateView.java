@@ -368,6 +368,7 @@ public class CandidateView extends View {
                 }
             }
 
+
 //            if (BuildConfig.DEBUG_LOG) {
 //                Log.d(TAG, "mainCandidate=" + mainCandidate + ", hintCandidate=" + hintCandidate);
 //            }
@@ -455,7 +456,7 @@ public class CandidateView extends View {
 
         invalidate();
     }
-
+    /*
     protected void setSuggestions(String rawInput, ArrayList<ImeDict> suggestions, int currentInputLomajiMode) {
         clear();
         mRawInput = rawInput;
@@ -470,7 +471,21 @@ public class CandidateView extends View {
         invalidate();
         requestLayout();
     }
+    */
+    protected void setSuggestions(String rawInput, ArrayList<ImeDict> suggestions, int currentInputLomajiMode) {
+        clear();
+        mRawInput = rawInput;
+        if (suggestions != null) {
+            mSuggestions.clear();
+            mSuggestions.addAll(suggestions);
+        }
+        mCurrentInputLomajiMode = currentInputLomajiMode;
 
+        scrollTo(0, 0);
+        mTargetScrollX = 0;
+        invalidate();
+        requestLayout();
+    }
     public void clear() {
         mRawInput = null;
         mSuggestions.clear();
@@ -478,6 +493,8 @@ public class CandidateView extends View {
         mSelectedIndex = -1;
         invalidate();
     }
+
+
 
     @Override
     public boolean onTouchEvent(MotionEvent me) {

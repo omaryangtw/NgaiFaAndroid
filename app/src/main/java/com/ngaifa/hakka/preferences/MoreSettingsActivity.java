@@ -95,7 +95,7 @@ public class MoreSettingsActivity extends AppCompatActivity {
         Prefs.putBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, isVibration);
     }
 
-    private void setCurrentInputLomajiMode(int inputMode) {
+    static void setCurrentInputLomajiMode(int inputMode) {
         if (inputMode == AppPrefs.INPUT_LOMAJI_MODE_ENGLISH) {
             // skip saving EN
         } else {

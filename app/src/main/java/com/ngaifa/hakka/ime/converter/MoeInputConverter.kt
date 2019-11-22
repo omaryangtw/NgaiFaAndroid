@@ -3,34 +3,22 @@ package com.ngaifa.hakka.ime.converter
 import android.text.TextUtils
 import android.util.Log
 import com.ngaifa.hakka.BuildConfig
+import com.ngaifa.hakka.parser.parser.Moe
 import java.util.regex.Pattern
+import com.ngaifa.hakka.parser.parser.Pfs
 
+object MoeInputConverter {
+    private val TAG = MoeInputConverter::class.java.simpleName
 
-object PojInputConverter {
-    private val TAG = PojInputConverter::class.java.simpleName
+    private val sMoeWordExtractPattern = Pattern.compile("(?:(b|p|m|f|v|d|t|n|l|z|j|c|q|s|x|g|k|ng|h)?([aueoi+]+(n|ng|m)(?:(ng|m|n|)|([bdg]))?([1-9])?|(b|p|m|f|v|d|t|n|l|z|j|c|q|s|x|g|k|ng|h)-?-?))", Pattern.CASE_INSENSITIVE)
 
-    private val sPojWordExtractPattern = Pattern.compile("(?:(ph|p|m|b|th|t|n|l|kh|k|ng|g|h|chh|ch|s|j)?([aiueo+]+(?:nn)?|ng|m)(?:(ng|m|n|re|r)|(p|t|h|k))?([1-9])?|(ph|p|m|b|th|t|n|l|kh|k|ng|g|h|chh|ch|s|j)-?-?)", Pattern.CASE_INSENSITIVE)
-
-    //    // [o, a ,e ,u, i, n, m]
-    //    private static int[] sLomajiNumberToWordTempArray = {0, 0, 0, 0, 0, 0, 0};
-    //
-    //    private static void resetTempArray() {
-    //        int count = sLomajiNumberToWordTempArray.length;
-    //        for (int i = 0; i < count; i++) {
-    //            sLomajiNumberToWordTempArray[i] = 0;
-    //        }
-    //    }
-
-    fun convertPojNumberRawInputToPojWords(input: String?): String? {
-        if (BuildConfig.DEBUG_LOG) {
-            Log.d(TAG, "convertPojNumberRawInputToPojWords(): input=" + input!!)
-        }
+    fun convertMoeNumberRawInputToPfsWords(input: String?): String? {
 
         if (input == null) {
             return null
         }
 
-        val matcher = sPojWordExtractPattern.matcher(input)
+        val matcher = sMoeWordExtractPattern.matcher(input)
         val groupCount = matcher.groupCount()
         if (groupCount == 0) {
             Log.w(TAG, "groupCount=0, return. input = $input")
@@ -40,16 +28,16 @@ object PojInputConverter {
         val stringBuilder = StringBuilder()
         var isMatcherFound = false
         while (matcher.find()) {
-            val foundTaigiWord = matcher.group()
+            val foundHakkaWord = matcher.group()
 
-            val pojNumber = convertPojRawInputToPojNumber(foundTaigiWord)
-            val poj = convertPojNumberToPoj(pojNumber)
+            val moeNumber = convertMoeRawInputToMoeNumber(foundHakkaWord)
+            val moe = convertMoeNumberToMoe(moeNumber)
             if (BuildConfig.DEBUG_LOG) {
-                Log.d(TAG, "foundTaigiWord=$foundTaigiWord, poj=$poj")
+                Log.d(TAG, "foundHakkaWord=$foundHakkaWord, Pfs=$moe")
             }
 
-            stringBuilder.append(poj)
-            stringBuilder.append("-")
+            stringBuilder.append(moe)
+            stringBuilder.append(" ")
 
             isMatcherFound = true
         }
@@ -60,34 +48,36 @@ object PojInputConverter {
         return stringBuilder.toString()
     }
 
-    private fun convertPojRawInputToPojNumber(foundTaigiWord: String): String {
-        var pojNumber = foundTaigiWord.replace("OO", "O͘")
+    private fun convertMoeRawInputToMoeNumber(foundHakkaWord: String): String {
+        var moeNumber = foundHakkaWord
+/*
+        var pfsNumber = foundHakkaWord.replace("OO", "O͘")
                 .replace("Oo", "O͘")
                 .replace("oo", "o͘")
 
-        if (pojNumber.indexOf("nn") > 0) {
-            pojNumber = pojNumber.replace("nn", "ⁿ")
-        } else if (pojNumber.indexOf("NN") > 0) {
-            pojNumber = pojNumber.replace("NN", "ⁿ")
+        if (pfsNumber.indexOf("nn") > 0) {
+            pfsNumber = pfsNumber.replace("nn", "ⁿ")
+        } else if (pfsNumber.indexOf("NN") > 0) {
+            pfsNumber = pfsNumber.replace("NN", "ⁿ")
         }
-
-        return pojNumber
+*/
+        return moeNumber
     }
 
-    private fun convertPojNumberToPoj(pojNumber: String): String {
-        val fixedPojNumber = ConverterUtils.fixLomajiNumber(pojNumber)
+    private fun convertMoeNumberToMoe(moeNumber: String): String {
+        val fixedMoeNumber = ConverterUtils.fixLomajiNumber(moeNumber)
 
-        if (fixedPojNumber.length <= 1) {
-            return fixedPojNumber
+        if (fixedMoeNumber.length <= 1) {
+            return fixedMoeNumber
         }
 
         if (BuildConfig.DEBUG_LOG) {
-            Log.d(TAG, "fixedPojNumber=$fixedPojNumber")
+            Log.d(TAG, "fixedpfsNumber=$fixedMoeNumber")
         }
 
         var number = ""
 
-        val lastCharString = fixedPojNumber.substring(fixedPojNumber.length - 1)
+        val lastCharString = fixedMoeNumber.substring(fixedMoeNumber.length - 1)
         if (BuildConfig.DEBUG_LOG) {
             Log.d(TAG, "lastCharString=$lastCharString")
         }
@@ -96,42 +86,47 @@ object PojInputConverter {
         }
 
         if (TextUtils.isEmpty(number)) {
-            return pojNumber
+            return moeNumber
         }
 
-        val pojWithoutNumber = fixedPojNumber.substring(0, fixedPojNumber.length - 1)
+        val moeWithoutNumber = fixedMoeNumber.substring(0, fixedMoeNumber.length - 1)
 
-        val pojSianntiauPosition: PojSianntiauPosition? = getPojSianntiauPosition(pojWithoutNumber)
-        if (pojSianntiauPosition == null) {
-            return pojWithoutNumber
+        val str1 = moeWithoutNumber
+        val str2 = Moe.sMoeNumberToMoeUnicodeHashMap[number]
+        return str1+str2
+/*
+        val PfsSianntiauPosition: PfsSianntiauPosition? = getPfsSianntiauPosition(PfsWithoutNumber)
+        if (PfsSianntiauPosition == null) {
+            return PfsWithoutNumber
         } else {
-            val str1 = pojWithoutNumber.substring(0, pojSianntiauPosition.pos)
+            val str1 = PfsWithoutNumber.substring(0, PfsSianntiauPosition.pos)
 
-            val str2PojBosianntiau = pojWithoutNumber.substring(pojSianntiauPosition.pos, pojSianntiauPosition.pos + pojSianntiauPosition.length)
-            val str2PojNumber = str2PojBosianntiau + number
-            val str2 = Poj.sPojNumberToPojUnicodeHashMap[str2PojNumber]
+            val str2PfsBosianntiau = PfsWithoutNumber.substring(PfsSianntiauPosition.pos, PfsSianntiauPosition.pos + PfsSianntiauPosition.length)
+            val str2pfsNumber = str2PfsBosianntiau + number
+            val str2 = Pfs.sPfsNumberToPfsUnicodeHashMap[str2pfsNumber]
             if (str2.isNullOrEmpty()) {
-                println("Poj.sPojNumberToPojUnicodeHashMap not found: $pojNumber, $str2PojNumber")
-                throw PojUnicodeNotFoundException("Poj.sPojNumberToPojUnicodeHashMap[$str2PojNumber] not found")
+                println("Pfs.spfsNumberToPfsUnicodeHashMap not found: $moeNumber, $str2pfsNumber")
+                throw PfsUnicodeNotFoundException("Pfs.spfsNumberToPfsUnicodeHashMap[$str2pfsNumber] not found")
             }
 
-            val str3 = pojWithoutNumber.substring(pojSianntiauPosition.pos + pojSianntiauPosition.length, pojWithoutNumber.length)
+            val str3 = PfsWithoutNumber.substring(PfsSianntiauPosition.pos + PfsSianntiauPosition.length, PfsWithoutNumber.length)
 
-            val poj = str1 + str2 + str3
+            val Pfs = str1 + str2 + str3
 
             if (BuildConfig.DEBUG_LOG) {
-                Log.d(TAG, "pojWithoutNumber=$pojWithoutNumber, number=$number, tonePosition=${pojSianntiauPosition.pos}, poj=$poj")
+                Log.d(TAG, "PfsWithoutNumber=$PfsWithoutNumber, number=$number, tonePosition=${PfsSianntiauPosition.pos}, Pfs=$Pfs")
             }
 
-            return poj
-        }
+            return Pfs
+*/
+//        }
 
-//        val poj = generatePojInput(pojWithoutNumber, number, pojSianntiauPosition)
+//        val Pfs = generatePfsInput(PfsWithoutNumber, number, PfsSianntiauPosition)
     }
 
-    fun getPojSianntiauPosition(pojBoSianntiau: String): PojSianntiauPosition? {
-        val str = pojBoSianntiau.toLowerCase()
-        val vowelList = listOf("a", "i", "u", "o͘", "e", "o")
+    fun getPfsSianntiauPosition(PfsBoSianntiau: String): PfsSianntiauPosition? {
+        val str = PfsBoSianntiau.toLowerCase()
+        val vowelList = listOf("a", "i", "u", "ṳ", "e", "o")
         val semivowelList = listOf("m", "ng", "n")
         val choankhiunnVowelList = listOf("ir", "er")
 
@@ -147,9 +142,9 @@ object PojInputConverter {
             } else {
                 // Found no vowel, but found semivowel. Tone marks at semivowel.
                 if (str.contains("ng")) {
-                    return PojSianntiauPosition(lastIndexOfAnySemiVowel, 2)
+                    return PfsSianntiauPosition(lastIndexOfAnySemiVowel, 2)
                 } else {
-                    return PojSianntiauPosition(lastIndexOfAnySemiVowel, 1)
+                    return PfsSianntiauPosition(lastIndexOfAnySemiVowel, 1)
                 }
             }
         } else {
@@ -157,37 +152,37 @@ object PojInputConverter {
 
             // handle ir/er
             if (str.contains("(ir|er)".toRegex())) {
-//                println("ir/er pojBoSianntiau: $pojBoSianntiau")
+//                println("ir/er PfsBoSianntiau: $PfsBoSianntiau")
 
                 val lastIndexOfAnyChoankhiunnVowel = str.lastIndexOfAny(choankhiunnVowelList)
-                return PojSianntiauPosition(lastIndexOfAnyChoankhiunnVowel, 1)
+                return PfsSianntiauPosition(lastIndexOfAnyChoankhiunnVowel, 1)
             }
 
             val vowelCount: Int = getVowelCount(str, lastIndexOfAnyVowel)
 
             if (vowelCount == 1) {
-                return PojSianntiauPosition(lastIndexOfAnyVowel, 1)
+                return PfsSianntiauPosition(lastIndexOfAnyVowel, 1)
             } else {
                 // Found HokBoim
 
                 val last2ndJiboPosition = findJiboPositionFromLastCharExludingPhinnim(str, 2)
                 val last2ndJiboString = str.substring(last2ndJiboPosition, last2ndJiboPosition + 1)
 
-                val isPojJipsiann = isPojJipsiann(str)
-                if (isPojJipsiann) {
+                val isPfsJipsiann = isPfsJipsiann(str)
+                if (isPfsJipsiann) {
                     // Found HokBoim Jipsiann
 
                     // Handle special cases:
                     if (str.toLowerCase().contains("iuh")) {
                         // "iuh" found
                         val findJiboPositionFromLastCharExludingPhinnim = findJiboPositionFromLastCharExludingPhinnim(str, 2)
-                        return PojSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
+                        return PfsSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
                     } else {
                         if (last2ndJiboString.toLowerCase().matches("[iu]".toRegex())) {
                             val findJiboPositionFromLastCharExludingPhinnim = findJiboPositionFromLastCharExludingPhinnim(str, 3)
-                            return PojSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
+                            return PfsSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
                         } else {
-                            return PojSianntiauPosition(last2ndJiboPosition, 1)
+                            return PfsSianntiauPosition(last2ndJiboPosition, 1)
                         }
                     }
                 } else {
@@ -197,41 +192,41 @@ object PojInputConverter {
                     if (last2ndJiboString.toLowerCase() == "i") {
                         // Tone marks at the last jibo. (excluding phinnim)
                         val findJiboPositionFromLastCharExludingPhinnim = findJiboPositionFromLastCharExludingPhinnim(str, 1)
-                        return PojSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
+                        return PfsSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
                     }
 
                     // Tone marks at the last 2nd jibo. (excluding phinnim)
                     val findJiboPositionFromLastCharExludingPhinnim = findJiboPositionFromLastCharExludingPhinnim(str, 2)
-                    return PojSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
+                    return PfsSianntiauPosition(findJiboPositionFromLastCharExludingPhinnim, 1)
                 }
             }
         }
     }
 
-    private fun isPojJipsiann(pojBoSianntiau: String): Boolean {
-        val lastCharExcludingPhinnim = pojBoSianntiau.replace("ⁿ", "").substring(pojBoSianntiau.length - 1)
-        return lastCharExcludingPhinnim.toLowerCase().matches("[ptkh]".toRegex())
+    private fun isPfsJipsiann(PfsBoSianntiau: String): Boolean {
+        val lastCharExcludingPhinnim = PfsBoSianntiau.replace("ⁿ", "").substring(PfsBoSianntiau.length - 1)
+        return lastCharExcludingPhinnim.toLowerCase().matches("[ptk]".toRegex())
     }
 
-    private fun findJiboPositionFromLastCharExludingPhinnim(pojBoSianntiau: String, findWhichCharFromRight: Int): Int {
-        var pos: Int = pojBoSianntiau.length - 1
+    private fun findJiboPositionFromLastCharExludingPhinnim(PfsBoSianntiau: String, findWhichCharFromRight: Int): Int {
+        var pos: Int = PfsBoSianntiau.length - 1
         var foundJiboCount = 0
 
         while (pos >= 0) {
-            val currentCharString = pojBoSianntiau.substring(pos, pos + 1)
-            var isFoundPojOoPoint = false
-            var isFoundPojNg = false
+            val currentCharString = PfsBoSianntiau.substring(pos, pos + 1)
+            var isFoundPfsOoPoint = false
+            var isFoundPfsNg = false
 
             if (currentCharString == "ⁿ") {
                 // skip
             } else if (currentCharString == "\u0358") {
                 // found "o͘  "'s "͘  "
-                isFoundPojOoPoint = true
+                isFoundPfsOoPoint = true
             } else if (currentCharString.toLowerCase() == "g" && pos - 1 >= 0) {
-                val nextCharString = pojBoSianntiau.substring(pos - 1, pos)
+                val nextCharString = PfsBoSianntiau.substring(pos - 1, pos)
                 if (nextCharString.toLowerCase() == "n") {
                     // found "ng"
-                    isFoundPojNg = true
+                    isFoundPfsNg = true
                 } else {
                     // found "g"
                 }
@@ -244,9 +239,9 @@ object PojInputConverter {
                 break
             }
 
-            if (isFoundPojNg) {
+            if (isFoundPfsNg) {
                 pos -= 2
-            } else if (isFoundPojOoPoint) {
+            } else if (isFoundPfsOoPoint) {
                 pos--
             } else {
                 pos--
@@ -260,12 +255,12 @@ object PojInputConverter {
         return pos
     }
 
-    private fun getVowelCount(pojBoSianntiau: String, lastIndexOfAnyVowel: Int): Int {
+    private fun getVowelCount(PfsBoSianntiau: String, lastIndexOfAnyVowel: Int): Int {
         if (lastIndexOfAnyVowel == 0) {
             return 1
         }
 
-        val isLeftCharAlsoVowel = pojBoSianntiau.substring(lastIndexOfAnyVowel - 1, lastIndexOfAnyVowel).contains("[aiueo]".toRegex())
+        val isLeftCharAlsoVowel = PfsBoSianntiau.substring(lastIndexOfAnyVowel - 1, lastIndexOfAnyVowel).contains("[aiueo]".toRegex())
         if (!isLeftCharAlsoVowel) {
             return 1
         }
@@ -276,7 +271,7 @@ object PojInputConverter {
 //            return 2
 //        }
 //
-//        val isLeft2CharAlsoVowel = pojBoSianntiau.substring(lastIndexOfAnyVowel - 2, lastIndexOfAnyVowel - 1).contains("a|i|u|e|o".toRegex())
+//        val isLeft2CharAlsoVowel = PfsBoSianntiau.substring(lastIndexOfAnyVowel - 2, lastIndexOfAnyVowel - 1).contains("a|i|u|e|o".toRegex())
 //        if (!isLeft2CharAlsoVowel) {
 //            return 2
 //        }
@@ -284,18 +279,18 @@ object PojInputConverter {
 //        return 3
     }
 
-//    private fun calculateTonePosition(pojWithoutNumber: String): Int {
-//        var pojWithoutNumber = pojWithoutNumber
-//        pojWithoutNumber = pojWithoutNumber.toLowerCase()
-//        val count = pojWithoutNumber.length
+//    private fun calculateTonePosition(PfsWithoutNumber: String): Int {
+//        var PfsWithoutNumber = PfsWithoutNumber
+//        PfsWithoutNumber = PfsWithoutNumber.toLowerCase()
+//        val count = PfsWithoutNumber.length
 //
 //        if (BuildConfig.DEBUG_LOG) {
-//            Log.d(TAG, "calculateTonePosition: pojWithoutNumber = $pojWithoutNumber, count = $count")
+//            Log.d(TAG, "calculateTonePosition: PfsWithoutNumber = $PfsWithoutNumber, count = $count")
 //        }
 //
-//        val lastIndexOfVowel = lastIndexOfRegex(pojWithoutNumber, "a|i|u|e|o")
+//        val lastIndexOfVowel = lastIndexOfRegex(PfsWithoutNumber, "a|i|u|e|o")
 //        if (lastIndexOfVowel == -1) {
-//            val lastIndexOfHalfVowel = lastIndexOfRegex(pojWithoutNumber, "m|ng|n")
+//            val lastIndexOfHalfVowel = lastIndexOfRegex(PfsWithoutNumber, "m|ng|n")
 //            return if (lastIndexOfHalfVowel == -1) {
 //                -1
 //            } else {
@@ -308,14 +303,14 @@ object PojInputConverter {
 //                if (lastIndexOfVowel == 0) {
 //                    return 0
 //                } else {
-//                    if (pojWithoutNumber.contains("oai") && pojWithoutNumber.endsWith("h")) {
-//                        return pojWithoutNumber.indexOf("o")
+//                    if (PfsWithoutNumber.contains("oai") && PfsWithoutNumber.endsWith("h")) {
+//                        return PfsWithoutNumber.indexOf("o")
 //                    }
 //
-//                    val previousChar = pojWithoutNumber.substring(lastIndexOfVowel - 1, lastIndexOfVowel)
+//                    val previousChar = PfsWithoutNumber.substring(lastIndexOfVowel - 1, lastIndexOfVowel)
 //                    // if vowel count >= 2
 //                    if (previousChar.matches("a|i|u|e|o".toRegex())) {
-//                        val lastVowelChar = pojWithoutNumber.substring(lastIndexOfVowel, lastIndexOfVowel + 1)
+//                        val lastVowelChar = PfsWithoutNumber.substring(lastIndexOfVowel, lastIndexOfVowel + 1)
 //                        return if (lastVowelChar == "i" && lastIndexOfVowel == count - 2) {
 //                            lastIndexOfVowel - 1
 //                        } else {
@@ -361,12 +356,12 @@ object PojInputConverter {
         return lastIndex
     }
 
-    //    private static int calculateTonePositionWithPojToneStatistics(String pojWithoutNumber) {
+    //    private static int calculateTonePositionWithPfsToneStatistics(String PfsWithoutNumber) {
     //        resetTempArray();
     //
-    //        int count = pojWithoutNumber.length();
+    //        int count = PfsWithoutNumber.length();
     //        for (int i = 0; i < count; i++) {
-    //            final char c = pojWithoutNumber.charAt(i);
+    //            final char c = PfsWithoutNumber.charAt(i);
     //
     //            switch (c) {
     //                case 'o':
@@ -410,18 +405,18 @@ object PojInputConverter {
     //        return foundToneCharPosition;
     //    }
 
-//    private fun generatePojInput(pojWithoutNumber: String, number: String, pojSianntiauPosition: PojSianntiauPosition): String {
+//    private fun generatePfsInput(PfsWithoutNumber: String, number: String, PfsSianntiauPosition: PfsSianntiauPosition): String {
 //        val stringBuilder = StringBuilder()
 //
-//        val length = pojWithoutNumber.length
+//        val length = PfsWithoutNumber.length
 //        for (i in 0 until length) {
-//            val currentCharString = pojWithoutNumber.substring(i, i + 1)
+//            val currentCharString = PfsWithoutNumber.substring(i, i + 1)
 //
 //            if (i == tonePosition) {
-//                val pojNumber = currentCharString + number
-//                val poj = Poj.sPojNumberToPojUnicodeHashMap[pojNumber]
-//                if (poj != null) {
-//                    stringBuilder.append(poj)
+//                val pfsNumber = currentCharString + number
+//                val Pfs = Pfs.spfsNumberToPfsUnicodeHashMap[pfsNumber]
+//                if (Pfs != null) {
+//                    stringBuilder.append(Pfs)
 //                } else {
 //                    stringBuilder.append(currentCharString)
 //                }

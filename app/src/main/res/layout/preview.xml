@@ -3,7 +3,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:alpha="1.0"
-          android:background="@color/key_background_lxx_dark_lighter"
+          android:background="#8fff"
           android:gravity="center"
           android:paddingBottom="10dp"
           android:textColor="#fccc"

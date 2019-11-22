@@ -2,16 +2,24 @@ package com.ngaifa.hakka.preferences;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,10 +28,28 @@ import com.ngaifa.hakka.R;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class ImePreferences extends AppCompatActivity {
+public class ImePreferences extends AppCompatActivity{
 
     private static final int KEY_MESSAGE_UNREGISTER_LISTENER = 447;
     private static final int KEY_MESSAGE_RETURN_TO_APP = 446;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @BindView(R.id.step1Button)
     Button mStep1Button;
@@ -44,16 +70,21 @@ public class ImePreferences extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_prefs);
+
         ButterKnife.bind(this);
 
         mBaseContext = getBaseContext();
         mReLaunchTaskIntent = getPackageManager().getLaunchIntentForPackage(getPackageName());
         mReLaunchTaskIntent.addFlags(FLAG_ACTIVITY_CLEAR_TASK);
         mAppContext = getApplicationContext();
-
         init();
     }
+
+
+
+
 
     private void init() {
         mAppContext.getContentResolver().registerContentObserver(Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
@@ -166,4 +197,5 @@ public class ImePreferences extends AppCompatActivity {
         super.onDestroy();
         unregisterSettingsObserverNow();
     }
+
 }

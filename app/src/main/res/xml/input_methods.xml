@@ -21,7 +21,7 @@
 <!-- for the Search Manager. -->
 
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
-              android:settingsActivity="com.taccotap.phahtaigi.preferences.ImePreferences"
+              android:settingsActivity="com.ngaifa.hakka.preferences.ImePreferences"
               android:supportsSwitchingToNextInputMethod="true">
     <subtype
         android:imeSubtypeLocale="zh_TW"

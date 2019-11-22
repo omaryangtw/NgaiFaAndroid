@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="VIBRATION"
+        android:title="@string/vibration"
+        android:defaultValue="false"
+        android:summary="@string/vibration_summary"/>
+    <ListPreference
+        android:key="dialect"
+        android:defaultValue="sixian"
+        android:title="@string/dialect"
+        android:entries="@array/dialect"
+        android:entryValues="@array/dialect_values"
+        android:dialogTitle="@string/dialect_title"
+        android:summary="%s"/>
+    <ListPreference
+        android:key="system"
+        android:defaultValue="INPUT_LOMAJI_MODE_PFS"
+        android:title="@string/system"
+        android:entries="@array/system"
+        android:entryValues="@array/system_values"
+        android:dialogTitle="@string/system_title"
+        android:summary="%s"/>
+
+</PreferenceScreen>

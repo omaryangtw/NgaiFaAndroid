@@ -40,5 +40,5 @@
     <!-- Normal keys. -->
     <item android:drawable="@color/key_background_pressed_lxx_dark"
           android:state_pressed="true"/>
-    <item android:drawable="@color/key_background_lxx_dark"/>
+    <item android:drawable="@color/key_background_lxx_light"/>
 </selector>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -85,7 +86,7 @@ public class TaigiIme extends InputMethodService
 
     private volatile boolean mIsNeedToUpdateHanjiFont = false;
     private boolean mIsVibration;
-
+    private boolean mV;
     /**
      * Main initialization of the input method component.  Be sure to call
      * to super class.
@@ -141,8 +142,9 @@ public class TaigiIme extends InputMethodService
         if (BuildConfig.DEBUG_LOG) {
             Log.i(TAG, "onStartInput(): restarting = " + restarting);
         }
-
-        mIsVibration = Prefs.getBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, AppPrefs.PREFS_KEY_IS_VIBRATION_YES);
+         mIsVibration = getSharedPreferences("preference", MODE_PRIVATE)
+                .getBoolean("VIBRATION", false);
+        //mIsVibration = Prefs.getBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, AppPrefs.PREFS_KEY_IS_VIBRATION_YES);
 
         // We are now going to initialize our state based on the type of
         // text being edited.
@@ -227,7 +229,7 @@ public class TaigiIme extends InputMethodService
 
         if (!Prefs.getBoolean(AppPrefs.PREFS_KEY_HAS_SHOW_SETTING_FIRST_TIME_V2, false)
                 || Prefs.getBoolean(AppPrefs.PREFS_KEY_IS_SHOW_SETTING, true)) {
-            mKeyboardSettingLayout.setVisibility(View.VISIBLE);
+            //mKeyboardSettingLayout.setVisibility(View.VISIBLE);
         }
 
         Button moreSettingButton = (Button) mKeyboardSettingLayout.findViewById(R.id.moreSettingButton);
