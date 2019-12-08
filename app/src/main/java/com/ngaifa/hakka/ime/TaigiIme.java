@@ -142,8 +142,9 @@ public class TaigiIme extends InputMethodService
         if (BuildConfig.DEBUG_LOG) {
             Log.i(TAG, "onStartInput(): restarting = " + restarting);
         }
-         mIsVibration = getSharedPreferences("preference", MODE_PRIVATE)
-                .getBoolean("VIBRATION", false);
+        //String vibrationString = getSharedPreferences("preference", MODE_PRIVATE).getString();
+        //mIsVibration = getSharedPreferences("preference", MODE_PRIVATE)
+        //       .getBoolean("VIBRATION", false);
         //mIsVibration = Prefs.getBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, AppPrefs.PREFS_KEY_IS_VIBRATION_YES);
 
         // We are now going to initialize our state based on the type of
@@ -224,13 +225,13 @@ public class TaigiIme extends InputMethodService
 
     @SuppressLint("InflateParams")
     private void initSettingLayout() {
+        // settings inside
         mKeyboardSettingLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.keyboard_settings, null);
         mInputView.addView(mKeyboardSettingLayout);
 
-        if (!Prefs.getBoolean(AppPrefs.PREFS_KEY_HAS_SHOW_SETTING_FIRST_TIME_V2, false)
-                || Prefs.getBoolean(AppPrefs.PREFS_KEY_IS_SHOW_SETTING, true)) {
-            //mKeyboardSettingLayout.setVisibility(View.VISIBLE);
-        }
+        if (Prefs.getBoolean(AppPrefs.PREFS_KEY_HAS_SHOW_SETTING_FIRST_TIME_V2, false)) {
+            Prefs.getBoolean(AppPrefs.PREFS_KEY_IS_SHOW_SETTING, true);
+        }//mKeyboardSettingLayout.setVisibility(View.VISIBLE);
 
         Button moreSettingButton = (Button) mKeyboardSettingLayout.findViewById(R.id.moreSettingButton);
         moreSettingButton.setOnClickListener(new View.OnClickListener() {

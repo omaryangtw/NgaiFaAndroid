@@ -7,6 +7,7 @@ import androidx.preference.*;
 import com.ngaifa.hakka.AppPrefs;
 import com.ngaifa.hakka.R;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.ngaifa.hakka.ime.TaigiIme;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -39,8 +40,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         switch (key){
             case "VIBRATION":
-                boolean isVibration = sharedPreferences.getBoolean(key,false);
-                Prefs.putBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, isVibration);
+                //boolean isVibration = sharedPreferences.getBoolean(key,false);
+                String Vibration = sharedPreferences.getString(key, "false");
+                //boolean isVibration;
+                if(Vibration.equals("true")){
+                    Prefs.putBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, true);
+                } else if(Vibration.equals("false")){
+                    Prefs.putBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, false);
+                }
+
+
+
+
+                //Prefs.putBoolean(AppPrefs.PREFS_KEY_IS_VIBRATION, isVibration);
 
                 break;
             case "dialect":
@@ -51,12 +63,22 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             case "system":
                 String system = sharedPreferences.getString(key, "INPUT_LOMAJI_MODE_PFS");
                 Log.d(TAG,system);
-                if(system.equals("INPUT_LOMAJI_MODE_PFS")){
-                    MoreSettingsActivity.setCurrentInputLomajiMode(2);
-                }else if(system.equals("INPUT_LOMAJI_MODE_MOE")){
-                    MoreSettingsActivity.setCurrentInputLomajiMode(3);
-                }else{
-                    MoreSettingsActivity.setCurrentInputLomajiMode(-1);
+                switch (system) {
+                    case "INPUT_LOMAJI_MODE_PFS":
+                        //change it back to PFS when finish model design
+                        MoreSettingsActivity.setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                        break;
+                    case "INPUT_LOMAJI_MODE_MOE":
+                        //change it back to MOE when finish model design
+                        MoreSettingsActivity.setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                        break;
+                    case "INPUT_LOMAJI_MODE_ENGLISH":
+                        //change it back to MOE when finish model design
+                        MoreSettingsActivity.setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_ENGLISH);
+                        break;
+                    default:
+                        MoreSettingsActivity.setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_APP_DEFAULT);
+                        break;
                 }
 
                 default:
