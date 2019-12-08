@@ -75,7 +75,7 @@ public class TaigiIme extends InputMethodService
     private CandidateController mCandidateController;
 
     private int mCurrentInputMode;
-    private int mCurrentInputLomajiMode;
+    public int mCurrentInputLomajiMode;
 
     private StringBuilder mComposing = new StringBuilder();
     private boolean mIsCapsLock;
@@ -486,9 +486,9 @@ public class TaigiIme extends InputMethodService
         } else if (primaryCode == CustomKeycode.KEYCODE_SWITCH_TO_LOMAJI) {
             Prefs.putInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_MODE, AppPrefs.INPUT_MODE_LOMAJI);
             mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
-        } else if (primaryCode == CustomKeycode.KEYCODE_SETTINGS) {
+        } /*else if (primaryCode == CustomKeycode.KEYCODE_SETTINGS) {
             handleOpenCloseSettingLayout();
-        } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && mHakkaKeyboardView != null) {
+        }*/ else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && mHakkaKeyboardView != null) {
             commitRawInputSuggestion();
             mKeyboardSwitcher.switchKeyboard();
         } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {
@@ -582,7 +582,7 @@ public class TaigiIme extends InputMethodService
         }
     }
 
-    public void setRawInputForCandidate(String rawInput) {
+    private void setRawInputForCandidate(String rawInput) {
         if (!TextUtils.isEmpty(rawInput)) {
             setCandidatesViewShown(true);
         } else if (isExtractViewShown()) {
