@@ -4,6 +4,25 @@ import java.util.*
 
 object KipLmj {
 
+    // <poj_unicode, poj_number>
+    val sKiplmjUnicodeToKiplmjNumberHashMap: HashMap<String, String> = HashMap()
+
+    // <poj_number, poj_unicode>
+    val sKiplmjNumberToKiplmjUnicodeHashMap: HashMap<String, String> = HashMap()
+
+    init {
+        sKiplmjUnicodeToKiplmjNumberHashMap["^"] = "1"
+        sKiplmjUnicodeToKiplmjNumberHashMap["ˋ"] = "2"
+        sKiplmjUnicodeToKiplmjNumberHashMap["ˊ"] = "3"
+        sKiplmjUnicodeToKiplmjNumberHashMap["ˋ"] = "5"
+        //sMoeUnicodeToMoeNumberHashMap[""] = "6"
+
+
+        for ((key, value) in sKiplmjUnicodeToKiplmjNumberHashMap) {
+            sKiplmjNumberToKiplmjUnicodeHashMap[value] = key
+        }
+    }
+    /*
     // <kiplmj_unicode, kiplmj_number>
     val sKiplmjUnicodeToKiplmjNumberHashMap: HashMap<String, String> = HashMap()
 
@@ -175,4 +194,6 @@ object KipLmj {
             sKiplmjNumberToKiplmjUnicodeHashMap[value] = key
         }
     }
+
+ */
 }

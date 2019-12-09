@@ -83,6 +83,14 @@ object KiplmjInputConverter {
             Log.d(TAG, "tailoWithoutNumber=$tailoWithoutNumber")
         }
 
+        when(number) {
+            "1" -> return  tailoWithoutNumber + "ˊ"
+            "2" -> return   tailoWithoutNumber + "ˇ"
+            "3" -> return   tailoWithoutNumber + "ˋ"
+            "5" -> return   tailoWithoutNumber + "ˋ"
+        }
+
+/*
         if (tailoWithoutNumber.contains("a")) {
             return replaceTailoNumberWithTailoUnicode(number, tailoWithoutNumber, "a")
         } else if (tailoWithoutNumber.contains("A")) {
@@ -130,8 +138,10 @@ object KiplmjInputConverter {
         } else if (tailoWithoutNumber.contains("N")) {
             return replaceTailoNumberWithTailoUnicode(number, tailoWithoutNumber, "N")
         }
-
+*/
         return fixedTailoNumber
+
+
     }
 
     private fun replaceTailoNumberWithTailoUnicode(number: String, tailoWithoutNumber: String, contains: String): String {
