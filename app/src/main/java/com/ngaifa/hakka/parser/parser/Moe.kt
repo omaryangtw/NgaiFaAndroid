@@ -13,7 +13,7 @@ object Moe {
         sMoeUnicodeToMoeNumberHashMap["ˋ"] = "2"
         sMoeUnicodeToMoeNumberHashMap["ˊ"] = "3"
         sMoeUnicodeToMoeNumberHashMap["ˋ"] = "5"
-        sMoeUnicodeToMoeNumberHashMap[""] = "6"
+        //sMoeUnicodeToMoeNumberHashMap[""] = "6"
 
 
         for ((key, value) in sMoeUnicodeToMoeNumberHashMap) {
