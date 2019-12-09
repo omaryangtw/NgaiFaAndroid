@@ -567,23 +567,19 @@ public class CandidateController {
         if (mImeDicts != null) {
             mImeDicts.removeAllChangeListeners();
         }
-
+/*
         String search = mRawInput.toLowerCase()
                 .replaceAll("1|4", "")
                 .replaceAll("6", "2");
+*/
 
-/*
-        int mCILM = Prefs.getInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_LOMAJI_MODE_V2, AppPrefs.INPUT_LOMAJI_MODE_APP_DEFAULT);
-        String search = mRawInput;
-        search = search.toLowerCase();
-        if(mCurrentInputLomajiMode == mCILM){
-            Log.w(TAG, "CurrentInputLomajiMode = " + mCILM + "/" + mCurrentInputLomajiMode);
-            search = search.replaceAll("2","3");
-            Log.w(TAG, "search = " + search );
-
+        String search = mRawInput.toLowerCase();
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+            search = search.replaceAll("[46]","");
+        }else if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+            search = search.replaceAll("[45]","");
         }
 
- */
 
 
         if (!search.matches(".*\\d+.*")) {

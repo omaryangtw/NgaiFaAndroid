@@ -9,6 +9,7 @@ object Pfs {
     val sPfsNumberToPfsUnicodeHashMap: HashMap<String, String> = HashMap()
 
     init {
+        /*
         // A
         sPfsUnicodeToPfsNumberHashMap["Â"] = "A1"
         sPfsUnicodeToPfsNumberHashMap["À"] = "A2"
@@ -153,5 +154,7 @@ object Pfs {
         for ((key, value) in sPfsUnicodeToPfsNumberHashMap) {
             sPfsNumberToPfsUnicodeHashMap[value] = key
         }
+
+         */
     }
 }

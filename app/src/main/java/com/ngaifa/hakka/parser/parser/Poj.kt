@@ -1,5 +1,5 @@
 package com.ngaifa.hakka.parser.parser
-
+/*
 object Poj {
 
     // <poj_unicode, poj_number>
@@ -160,6 +160,162 @@ object Poj {
         sPojUnicodeToPojNumberHashMap["n̄g"] = "ng7"
         sPojUnicodeToPojNumberHashMap["n̍g"] = "ng8"
         sPojUnicodeToPojNumberHashMap["n̆g"] = "ng9"
+
+        for ((key, value) in sPojUnicodeToPojNumberHashMap) {
+            sPojNumberToPojUnicodeHashMap[value] = key
+        }
+    }
+}
+*/
+object Poj {
+
+    // <poj_unicode, poj_number>
+    val sPojUnicodeToPojNumberHashMap: HashMap<String, String> = HashMap()
+
+    // <poj_number, poj_unicode>
+    val sPojNumberToPojUnicodeHashMap: HashMap<String, String> = HashMap()
+
+    init {
+        // A
+        sPojUnicodeToPojNumberHashMap["Â"] = "A1"
+        sPojUnicodeToPojNumberHashMap["À"] = "A2"
+        sPojUnicodeToPojNumberHashMap["Á"] = "A3"
+        //sPfsUnicodeToPfsNumberHashMap["A"] = "A5"
+        sPojUnicodeToPojNumberHashMap["A̍"] = "A6"
+
+
+        // a
+        sPojUnicodeToPojNumberHashMap["â"] = "a1"
+        sPojUnicodeToPojNumberHashMap["à"] = "a2"
+        sPojUnicodeToPojNumberHashMap["á"] = "a3"
+        //sPfsUnicodeToPfsNumberHashMap["a"] = "a5"
+        sPojUnicodeToPojNumberHashMap["a̍"] = "a6"
+
+
+        // I
+        sPojUnicodeToPojNumberHashMap["Î"] = "I1"
+        sPojUnicodeToPojNumberHashMap["Ì"] = "I2"
+        sPojUnicodeToPojNumberHashMap["Í"] = "I3"
+        //sPfsUnicodeToPfsNumberHashMap["I"] = "I5"
+        sPojUnicodeToPojNumberHashMap["I̍"] = "I6"
+
+
+        // i
+        sPojUnicodeToPojNumberHashMap["î"] = "i1"
+        sPojUnicodeToPojNumberHashMap["ì"] = "i2"
+        sPojUnicodeToPojNumberHashMap["í"] = "i3"
+        //sPfsUnicodeToPfsNumberHashMap["i"] = "i5"
+        sPojUnicodeToPojNumberHashMap["i̍"] = "i6"
+
+
+        // U
+        sPojUnicodeToPojNumberHashMap["Û"] = "U1"
+        sPojUnicodeToPojNumberHashMap["Ù"] = "U2"
+        sPojUnicodeToPojNumberHashMap["Ú"] = "U3"
+        //sPfsUnicodeToPfsNumberHashMap["U"] = "U5"
+        sPojUnicodeToPojNumberHashMap["U̍"] = "U6"
+
+
+        // u
+        sPojUnicodeToPojNumberHashMap["û"] = "u1"
+        sPojUnicodeToPojNumberHashMap["ù"] = "u2"
+        sPojUnicodeToPojNumberHashMap["ú"] = "u3"
+        //sPfsUnicodeToPfsNumberHashMap["u"] = "u5"
+        sPojUnicodeToPojNumberHashMap["u̍"] = "u6"
+
+        //Ṳ
+        sPojUnicodeToPojNumberHashMap["Ṳ̂"] = "Ṳ1"
+        sPojUnicodeToPojNumberHashMap["Ṳ̀"] = "Ṳ2"
+        sPojUnicodeToPojNumberHashMap["Ṳ́"] = "Ṳ3"
+        //sPfsUnicodeToPfsNumberHashMap["Ṳ"] = "Ṳ5"
+        sPojUnicodeToPojNumberHashMap["Ṳ̍"] = "Ṳ6"
+
+        // ṳ
+        sPojUnicodeToPojNumberHashMap["ṳ̂"] = "ṳ1"
+        sPojUnicodeToPojNumberHashMap["ṳ̀"] = "ṳ2"
+        sPojUnicodeToPojNumberHashMap["ṳ́́"] = "ṳ3"
+        //sPfsUnicodeToPfsNumberHashMap["ṳ"] = "ṳ5"
+        sPojUnicodeToPojNumberHashMap["ṳ̍"] = "ṳ6"
+
+        // E
+        sPojUnicodeToPojNumberHashMap["Ê"] = "E1"
+        sPojUnicodeToPojNumberHashMap["È"] = "E2"
+        sPojUnicodeToPojNumberHashMap["É"] = "E3"
+        //sPfsUnicodeToPfsNumberHashMap["E"] = "E5"
+        sPojUnicodeToPojNumberHashMap["E̍"] = "E6"
+
+
+        // e
+        sPojUnicodeToPojNumberHashMap["ê"] = "e1"
+        sPojUnicodeToPojNumberHashMap["è"] = "e2"
+        sPojUnicodeToPojNumberHashMap["é"] = "e3"
+        sPojUnicodeToPojNumberHashMap["e"] = "e5"
+        sPojUnicodeToPojNumberHashMap["e̍"] = "e6"
+
+
+        // O
+        sPojUnicodeToPojNumberHashMap["Ô"] = "O1"
+        sPojUnicodeToPojNumberHashMap["Ò"] = "O2"
+        sPojUnicodeToPojNumberHashMap["Ó"] = "O3"
+        //sPfsUnicodeToPfsNumberHashMap["O"] = "O5"
+        sPojUnicodeToPojNumberHashMap["O̍"] = "O6"
+
+
+        // o
+        sPojUnicodeToPojNumberHashMap["ô"] = "o1"
+        sPojUnicodeToPojNumberHashMap["ò"] = "o2"
+        sPojUnicodeToPojNumberHashMap["ó"] = "o3"
+        //sPfsUnicodeToPfsNumberHashMap["o"] = "o5"
+        sPojUnicodeToPojNumberHashMap["o̍"] = "o6"
+
+        // M
+        sPojUnicodeToPojNumberHashMap["M̂"] = "M1"
+        sPojUnicodeToPojNumberHashMap["M̀"] = "M2"
+        sPojUnicodeToPojNumberHashMap["Ḿ"] = "M3"
+        //sPfsUnicodeToPfsNumberHashMap["M"] = "M5"
+        sPojUnicodeToPojNumberHashMap["M̍"] = "M6"
+
+        // m
+        sPojUnicodeToPojNumberHashMap["m̂"] = "m1"
+        sPojUnicodeToPojNumberHashMap["m̀"] = "m2"
+        sPojUnicodeToPojNumberHashMap["ḿ"] = "m3"
+        //sPfsUnicodeToPfsNumberHashMap["m"] = "m5"
+        sPojUnicodeToPojNumberHashMap["m̍"] = "m6"
+
+        // N
+        sPojUnicodeToPojNumberHashMap["N̂"] = "N1"
+        sPojUnicodeToPojNumberHashMap["Ǹ"] = "N2"
+        sPojUnicodeToPojNumberHashMap["Ń"] = "N3"
+        //sPfsUnicodeToPfsNumberHashMap["N"] = "N5"
+        sPojUnicodeToPojNumberHashMap["N̍"] = "N6"
+
+        // n
+        sPojUnicodeToPojNumberHashMap["n̂"] = "n1"
+        sPojUnicodeToPojNumberHashMap["ǹ"] = "n2"
+        sPojUnicodeToPojNumberHashMap["ń"] = "n3"
+        //sPfsUnicodeToPfsNumberHashMap["n"] = "n5"
+        sPojUnicodeToPojNumberHashMap["n̍"] = "n6"
+
+        // Ng
+        sPojUnicodeToPojNumberHashMap["N̂g"] = "Ng1"
+        sPojUnicodeToPojNumberHashMap["Ǹg"] = "Ng2"
+        sPojUnicodeToPojNumberHashMap["Ńg"] = "Ng3"
+        //sPfsUnicodeToPfsNumberHashMap["Ng"] = "Ng5"
+        sPojUnicodeToPojNumberHashMap["N̍g"] = "Ng6"
+
+        // NG
+        sPojUnicodeToPojNumberHashMap["N̂G"] = "NG1"
+        sPojUnicodeToPojNumberHashMap["ǸG"] = "NG2"
+        sPojUnicodeToPojNumberHashMap["ŃG"] = "NG3"
+        //sPfsUnicodeToPfsNumberHashMap["NG"] = "NG5"
+        sPojUnicodeToPojNumberHashMap["N̍G"] = "NG6"
+
+        // ng
+        sPojUnicodeToPojNumberHashMap["n̂g"] = "ng1"
+        sPojUnicodeToPojNumberHashMap["ǹg"] = "ng2"
+        sPojUnicodeToPojNumberHashMap["ńg"] = "ng3"
+        //sPfsUnicodeToPfsNumberHashMap["ng"] = "ng5"
+        sPojUnicodeToPojNumberHashMap["n̍g"] = "ng6"
 
         for ((key, value) in sPojUnicodeToPojNumberHashMap) {
             sPojNumberToPojUnicodeHashMap[value] = key
