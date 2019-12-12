@@ -75,7 +75,7 @@ public class TaigiIme extends InputMethodService
     private CandidateController mCandidateController;
 
     private int mCurrentInputMode;
-    public int mCurrentInputLomajiMode;
+    private int mCurrentInputLomajiMode;
 
     private StringBuilder mComposing = new StringBuilder();
     private boolean mIsCapsLock;
@@ -496,7 +496,9 @@ public class TaigiIme extends InputMethodService
             return;
         } else if (primaryCode == CustomKeycode.KEYCODE_SHOW_IME_PICKER) {
             showImePicker();
-        } else {
+        } else if (primaryCode == CustomKeycode.KEYCODE_NEXT_IME) {
+            switchToNextIme();
+        }else {
             handleCharacter(primaryCode, keyCodes);
         }
 
@@ -686,7 +688,7 @@ public class TaigiIme extends InputMethodService
     private boolean isDirectlySendKeyWhenOnlyInputNumbers(int primaryCode) {
         if (mComposing.length() == 0) {
             // 1~9
-            if (primaryCode >= 49 && primaryCode <= 57) {
+            if (primaryCode >= 48 && primaryCode <= 57) {
                 return true;
             }
         }

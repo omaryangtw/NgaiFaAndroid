@@ -4,9 +4,11 @@ import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.view.inputmethod.InputMethodManager;
 
+import com.ngaifa.hakka.AppPrefs;
 import com.ngaifa.hakka.R;
 import com.ngaifa.hakka.ime.TaigiIme;
 import com.ngaifa.hakka.ime.candidate.CandidateView;
+import com.pixplicity.easyprefs.library.Prefs;
 
 public class KeyboardSwitcher {
 
@@ -29,6 +31,10 @@ public class KeyboardSwitcher {
     private HakkaKeyboard mLomajiSymbolsShiftedKeyboard;
     private HakkaKeyboard mHanjiSymbolsKeyboard;
     private HakkaKeyboard mHanjiSymbolsShiftedKeyboard;
+    private HakkaKeyboard mLomajiQwertyKeyboardMOE;
+    private HakkaKeyboard mLomajiSymbolsKeyboardMOE;
+    private HakkaKeyboard mLomajiSymbolsShiftedKeyboardMOE;
+    private HakkaKeyboard mHanjiQwertyKeyboardMOE;
 
     private HakkaKeyboard mCurrentKeyboard;
 
@@ -39,11 +45,16 @@ public class KeyboardSwitcher {
         mInputMethodManager = inputMethodManager;
 
         mLomajiQwertyKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_qwerty);
+        mLomajiQwertyKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_qwerty_moe);
         mHanjiQwertyKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_qwerty);
+        mHanjiQwertyKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_qwerty_moe);
         mLomajiSymbolsKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols);
         mLomajiSymbolsShiftedKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols_shift);
+        mLomajiSymbolsKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols_moe);
+        mLomajiSymbolsShiftedKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols_shift_moe);
         mHanjiSymbolsKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_symbols);
         mHanjiSymbolsShiftedKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_symbols_shift);
+
 
         mCurrentKeyboard = mLomajiQwertyKeyboard;
     }
@@ -57,22 +68,43 @@ public class KeyboardSwitcher {
 //    }
 
     public void setKeyboardByType(int keyboardType) {
-        HakkaKeyboard nextKeyboard;
+        HakkaKeyboard nextKeyboard = mLomajiQwertyKeyboard;
+        int mCurrentInputLomajiMode = Prefs.getInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_LOMAJI_MODE_V2, AppPrefs.INPUT_LOMAJI_MODE_APP_DEFAULT);
 
-        if (keyboardType == KEYBOARD_TYPE_LOMAJI_QWERTY) {
-            nextKeyboard = mLomajiQwertyKeyboard;
-        } else if (keyboardType == KEYBOARD_TYPE_HANJI_QWERTY) {
-            nextKeyboard = mHanjiQwertyKeyboard;
-        } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL) {
-            nextKeyboard = mLomajiSymbolsKeyboard;
-        } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL_SHIFTED) {
-            nextKeyboard = mLomajiSymbolsShiftedKeyboard;
-        } else if (keyboardType == KEYBOARD_TYPE_HANJI_SYMBOL) {
-            nextKeyboard = mHanjiSymbolsKeyboard;
-        } else if (keyboardType == KEYBOARD_TYPE_HANJI_SYMBOL_SHIFTED) {
-            nextKeyboard = mHanjiSymbolsShiftedKeyboard;
-        } else {
-            nextKeyboard = mLomajiQwertyKeyboard;
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+            if (keyboardType == KEYBOARD_TYPE_LOMAJI_QWERTY) {
+                nextKeyboard = mLomajiQwertyKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_QWERTY) {
+                nextKeyboard = mHanjiQwertyKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL) {
+                nextKeyboard = mLomajiSymbolsKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL_SHIFTED) {
+                nextKeyboard = mLomajiSymbolsShiftedKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_SYMBOL) {
+                nextKeyboard = mHanjiSymbolsKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_SYMBOL_SHIFTED) {
+                nextKeyboard = mHanjiSymbolsShiftedKeyboard;
+            } else {
+                nextKeyboard = mLomajiQwertyKeyboard;
+            }
+        }
+
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+            if (keyboardType == KEYBOARD_TYPE_LOMAJI_QWERTY) {
+                nextKeyboard = mLomajiQwertyKeyboardMOE;
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_QWERTY) {
+                nextKeyboard = mHanjiQwertyKeyboardMOE;
+            } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL) {
+                nextKeyboard = mLomajiSymbolsKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL_SHIFTED) {
+                nextKeyboard = mLomajiSymbolsShiftedKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_SYMBOL) {
+                nextKeyboard = mHanjiSymbolsKeyboard;
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_SYMBOL_SHIFTED) {
+                nextKeyboard = mHanjiSymbolsShiftedKeyboard;
+            } else {
+                nextKeyboard = mLomajiQwertyKeyboardMOE;
+            }
         }
 
         mCurrentKeyboard = nextKeyboard;
@@ -86,22 +118,42 @@ public class KeyboardSwitcher {
     }
 
     public boolean isCurrentKeyboardViewUseQwertyKeyboard() {
-        return mCurrentKeyboard == mLomajiQwertyKeyboard
-                || mCurrentKeyboard == mHanjiQwertyKeyboard;
+        if(mCurrentKeyboard == mLomajiQwertyKeyboard){
+            return true;
+        }else if(mCurrentKeyboard == mLomajiQwertyKeyboardMOE){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void switchKeyboard() {
         HakkaKeyboard currentKeyboard = (HakkaKeyboard) mHakkaKeyboardView.getKeyboard();
         HakkaKeyboard nextKeyboard = mLomajiQwertyKeyboard;
 
-        if (currentKeyboard == mLomajiQwertyKeyboard) {
-            nextKeyboard = mLomajiSymbolsKeyboard;
-        } else if (currentKeyboard == mHanjiQwertyKeyboard) {
-            nextKeyboard = mHanjiSymbolsKeyboard;
-        } else if (currentKeyboard == mLomajiSymbolsKeyboard || currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
-            nextKeyboard = mLomajiQwertyKeyboard;
-        } else if (currentKeyboard == mHanjiSymbolsKeyboard || currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
-            nextKeyboard = mHanjiQwertyKeyboard;
+        int mCurrentInputLomajiMode = Prefs.getInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_LOMAJI_MODE_V2, AppPrefs.INPUT_LOMAJI_MODE_APP_DEFAULT);
+
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+            if (currentKeyboard == mLomajiQwertyKeyboard) {
+                nextKeyboard = mLomajiSymbolsKeyboard;
+            } else if (currentKeyboard == mHanjiQwertyKeyboard) {
+                nextKeyboard = mHanjiSymbolsKeyboard;
+            } else if (currentKeyboard == mLomajiSymbolsKeyboard || currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
+                nextKeyboard = mLomajiQwertyKeyboard;
+            } else if (currentKeyboard == mHanjiSymbolsKeyboard || currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
+                nextKeyboard = mHanjiQwertyKeyboard;
+            }
+        }
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_MOE) {
+            if (currentKeyboard == mLomajiQwertyKeyboardMOE) {
+                nextKeyboard = mLomajiSymbolsKeyboard;
+            } else if (currentKeyboard == mHanjiQwertyKeyboardMOE) {
+                nextKeyboard = mHanjiSymbolsKeyboard;
+            } else if (currentKeyboard == mLomajiSymbolsKeyboard || currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
+                nextKeyboard = mLomajiQwertyKeyboardMOE;
+            } else if (currentKeyboard == mHanjiSymbolsKeyboard || currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
+                nextKeyboard = mHanjiQwertyKeyboardMOE;
+            }
         }
 
         mCurrentKeyboard = nextKeyboard;
@@ -113,14 +165,30 @@ public class KeyboardSwitcher {
         Keyboard currentKeyboard = mHakkaKeyboardView.getKeyboard();
         HakkaKeyboard nextKeyboard = mLomajiQwertyKeyboard;
 
-        if (currentKeyboard == mLomajiSymbolsKeyboard) {
-            nextKeyboard = mLomajiSymbolsShiftedKeyboard;
-        } else if (currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
-            nextKeyboard = mLomajiSymbolsKeyboard;
-        } else if (currentKeyboard == mHanjiSymbolsKeyboard) {
-            nextKeyboard = mHanjiSymbolsShiftedKeyboard;
-        } else if (currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
-            nextKeyboard = mHanjiSymbolsKeyboard;
+        int mCurrentInputLomajiMode = Prefs.getInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_LOMAJI_MODE_V2, AppPrefs.INPUT_LOMAJI_MODE_APP_DEFAULT);
+
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+            if (currentKeyboard == mLomajiSymbolsKeyboard) {
+                nextKeyboard = mLomajiSymbolsShiftedKeyboard;
+            } else if (currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
+                nextKeyboard = mLomajiSymbolsKeyboard;
+            } else if (currentKeyboard == mHanjiSymbolsKeyboard) {
+                nextKeyboard = mHanjiSymbolsShiftedKeyboard;
+            } else if (currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
+                nextKeyboard = mHanjiSymbolsKeyboard;
+            }
+        }
+
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_MOE) {
+            if (currentKeyboard == mLomajiSymbolsKeyboard) {
+                nextKeyboard = mLomajiSymbolsShiftedKeyboard;
+            } else if (currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
+                nextKeyboard = mLomajiSymbolsKeyboard;
+            } else if (currentKeyboard == mHanjiSymbolsKeyboard) {
+                nextKeyboard = mHanjiSymbolsShiftedKeyboard;
+            } else if (currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
+                nextKeyboard = mHanjiSymbolsKeyboard;
+            }
         }
 
         mCurrentKeyboard = nextKeyboard;
@@ -138,7 +206,8 @@ public class KeyboardSwitcher {
         if (mCandidateView != null) {
             if (nextKeyboard == mLomajiQwertyKeyboard
                     || nextKeyboard == mLomajiSymbolsKeyboard
-                    || nextKeyboard == mLomajiSymbolsShiftedKeyboard) {
+                    || nextKeyboard == mLomajiSymbolsShiftedKeyboard
+                    || nextKeyboard == mHanjiQwertyKeyboardMOE) {
                 mCandidateView.setIsMainCandidateLomaji(true);
             } else {
                 mCandidateView.setIsMainCandidateLomaji(false);

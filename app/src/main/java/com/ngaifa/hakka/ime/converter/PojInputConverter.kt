@@ -132,7 +132,7 @@ object PojInputConverter {
 
     fun getPojSianntiauPosition(pojBoSianntiau: String): PojSianntiauPosition? {
         val str = pojBoSianntiau.toLowerCase()
-        val vowelList = listOf("a", "i", "u", "o͘", "e", "o")
+        val vowelList = listOf("a", "i", "u", "o͘", "e", "o", "ṳ")
         val semivowelList = listOf("m", "ng", "n")
         val choankhiunnVowelList = listOf("ir", "er")
 
