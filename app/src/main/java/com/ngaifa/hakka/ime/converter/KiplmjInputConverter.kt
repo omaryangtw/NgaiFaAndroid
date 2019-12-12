@@ -8,7 +8,8 @@ import java.util.regex.Pattern
 object KiplmjInputConverter {
     private val TAG = KiplmjInputConverter::class.java.simpleName
 
-    private val sTailoWordExtractPattern = Pattern.compile("(?:(ph|p|m|b|th|tsh|ts|t|n|l|kh|k|ng|g|h|s|j)?([aiueo+]+(?:nn)?|ng|m)(?:(ng|m|n|re|r)|(p|t|h|k))?([1-9])?|(ph|p|m|b|th|tsh|ts|t|n|l|kh|k|ng|g|h|s|j)-?-?)", Pattern.CASE_INSENSITIVE)
+    //private val sTailoWordExtractPattern = Pattern.compile("(?:(ph|p|m|b|th|tsh|ts|t|n|l|kh|k|ng|g|h|s|j)?([aiueo+]+(?:nn)?|ng|m)(?:(ng|m|n|re|r)|(p|t|h|k))?([1-9])?|(ph|p|m|b|th|tsh|ts|t|n|l|kh|k|ng|g|h|s|j)-?-?)", Pattern.CASE_INSENSITIVE)
+    private val sTailoWordExtractPattern = Pattern.compile("(?:(b|p|m|f|v|d|t|n|l|z|j|c|q|s|x|g|k|ng|h)?([aueoi+]+(n|ng|m)(?:(ng|m|n|)|([bdg]))?([1-9])?|(b|p|m|f|v|d|t|n|l|z|j|c|q|s|x|g|k|ng|h)-?-?))", Pattern.CASE_INSENSITIVE)
 
     fun convertTailoNumberRawInputToTailoWords(input: String?): String? {
         if (BuildConfig.DEBUG_LOG) {
