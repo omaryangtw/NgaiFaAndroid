@@ -120,7 +120,7 @@ public class HakkaKeyboard extends Keyboard {
                 break;
             case EditorInfo.IME_ACTION_SEARCH:
                 //noinspection deprecation
-                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_search);
+                mEnterKey.icon = res.getDrawable(R.drawable.search);
                 mEnterKey.label = null;
                 break;
             case EditorInfo.IME_ACTION_SEND:
@@ -130,7 +130,7 @@ public class HakkaKeyboard extends Keyboard {
                 break;
             default:
                 //noinspection deprecation
-                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+                mEnterKey.icon = res.getDrawable(R.drawable.enter_arrow);
                 mEnterKey.label = null;
                 break;
         }

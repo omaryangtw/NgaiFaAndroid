@@ -18,6 +18,8 @@ public class KeyboardSwitcher {
     public static final int KEYBOARD_TYPE_LOMAJI_SYMBOL_SHIFTED = 3;
     public static final int KEYBOARD_TYPE_HANJI_SYMBOL = 4;
     public static final int KEYBOARD_TYPE_HANJI_SYMBOL_SHIFTED = 5;
+    public static final int KEYBOARD_TYPE_LOMAJI_QWERTY_MOE = 6;
+    public static final int KEYBOARD_TYPE_HANJI_QWERTY_MOE = 7;
 
     private final TaigiIme mTaigiIme;
     private final InputMethodManager mInputMethodManager;
@@ -32,8 +34,6 @@ public class KeyboardSwitcher {
     private HakkaKeyboard mHanjiSymbolsKeyboard;
     private HakkaKeyboard mHanjiSymbolsShiftedKeyboard;
     private HakkaKeyboard mLomajiQwertyKeyboardMOE;
-    private HakkaKeyboard mLomajiSymbolsKeyboardMOE;
-    private HakkaKeyboard mLomajiSymbolsShiftedKeyboardMOE;
     private HakkaKeyboard mHanjiQwertyKeyboardMOE;
 
     private HakkaKeyboard mCurrentKeyboard;
@@ -50,8 +50,6 @@ public class KeyboardSwitcher {
         mHanjiQwertyKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_qwerty_moe);
         mLomajiSymbolsKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols);
         mLomajiSymbolsShiftedKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols_shift);
-        mLomajiSymbolsKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols_moe);
-        mLomajiSymbolsShiftedKeyboardMOE = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_lomaji_symbols_shift_moe);
         mHanjiSymbolsKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_symbols);
         mHanjiSymbolsShiftedKeyboard = new HakkaKeyboard(taigiIme, R.xml.keyboard_layout_hanji_symbols_shift);
 
@@ -90,9 +88,9 @@ public class KeyboardSwitcher {
         }
 
         if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
-            if (keyboardType == KEYBOARD_TYPE_LOMAJI_QWERTY) {
+            if (keyboardType == KEYBOARD_TYPE_LOMAJI_QWERTY_MOE) {
                 nextKeyboard = mLomajiQwertyKeyboardMOE;
-            } else if (keyboardType == KEYBOARD_TYPE_HANJI_QWERTY) {
+            } else if (keyboardType == KEYBOARD_TYPE_HANJI_QWERTY_MOE) {
                 nextKeyboard = mHanjiQwertyKeyboardMOE;
             } else if (keyboardType == KEYBOARD_TYPE_LOMAJI_SYMBOL) {
                 nextKeyboard = mLomajiSymbolsKeyboard;
@@ -144,7 +142,8 @@ public class KeyboardSwitcher {
                 nextKeyboard = mHanjiQwertyKeyboard;
             }
         }
-        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_MOE) {
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+
             if (currentKeyboard == mLomajiQwertyKeyboardMOE) {
                 nextKeyboard = mLomajiSymbolsKeyboard;
             } else if (currentKeyboard == mHanjiQwertyKeyboardMOE) {
@@ -179,7 +178,7 @@ public class KeyboardSwitcher {
             }
         }
 
-        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_MOE) {
+        if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
             if (currentKeyboard == mLomajiSymbolsKeyboard) {
                 nextKeyboard = mLomajiSymbolsShiftedKeyboard;
             } else if (currentKeyboard == mLomajiSymbolsShiftedKeyboard) {

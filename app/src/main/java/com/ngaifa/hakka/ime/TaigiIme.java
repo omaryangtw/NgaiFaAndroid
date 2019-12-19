@@ -163,21 +163,6 @@ public class TaigiIme extends InputMethodService
                 mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_SYMBOL);
                 break;
 
-//            case InputType.TYPE_CLASS_TEXT:
-//                // This is general text editing.  We will default to the
-//                // normal alphabetic keyboard, and assume that we should
-//                // be doing predictive text (showing candidates as the
-//                // user types).
-//                if (mCurrentInputMode == INPUT_MODE_LOMAJI) {
-//                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
-//                } else if (mCurrentInputMode == INPUT_MODE_HANJI) {
-//                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
-//                } else {
-//                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
-//                }
-//                updateShiftKeyState(attribute);
-//                break;
-
             default:
                 // For all unknown input types, default to the alphabetic
                 // keyboard with no special features.
@@ -629,7 +614,7 @@ public class TaigiIme extends InputMethodService
         }
 
         // update icon
-        updateKeyboardViewShiftIcon();
+        //updateKeyboardViewShiftIcon();
     }
 
     private void updateKeyboardViewShiftIcon() {
@@ -800,33 +785,33 @@ public class TaigiIme extends InputMethodService
 //        return getCurrentInputConnection().getExtractedText(new ExtractedTextRequest(), 0).selectionEnd;
 //    }
 
-    public void swipeRight() {
+    public void swipeRight() {/*
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
         switchToNextIme();
-    }
+    */}
 
-    public void swipeLeft() {
+    public void swipeLeft() {/*
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
         showImePicker();
-    }
+    */}
 
-    public void swipeDown() {
+    public void swipeDown() {/*
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        handleClose();
+       */ handleClose();
     }
 
-    public void swipeUp() {
+    public void swipeUp() {/*
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
         handleOpenCloseSettingLayout();
-    }
+    */}
 
     public void onPress(int primaryCode) {
     }

@@ -2,7 +2,7 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
           android:horizontalGap="5dp"
           android:keyHeight="@dimen/taigi_key_height"
-          android:keyWidth="8.5%p"
+          android:keyWidth="9.5%p"
           android:verticalGap="10dp">
 
     <Row android:rowEdgeFlags="top">
@@ -204,28 +204,25 @@
 
              android:codes: -1001 is not a framework-defined key code
         -->
+
         <Key
-            android:codes="-1001"
-            android:keyLabel="LMJ"
-            android:keyWidth="12%p"/>
+                android:codes="-2002"
+                android:keyIcon="@drawable/global"
+                android:keyWidth="12%p"/>
         <Key
             android:codes="32"
             android:isRepeatable="false"
             android:keyIcon="@drawable/btn_keyboard_spacebar_lxx_dark"
-            android:keyWidth="30%p"/>
+            android:keyWidth="40%p"/>
         <Key
-            android:codes="44"
-            android:keyLabel=","
-            />
-        <Key
-            android:codes="46"
-            android:keyLabel="."
-            />
+                android:codes="-1001"
+                android:keyLabel="羅"
+                android:keyWidth="12%p"/>
         <Key
             android:codes="10"
             android:keyEdgeFlags="right"
             android:keyIcon="@drawable/enter_arrow"
-            android:keyWidth="15%p"/>
+            android:keyWidth="23%p"/>
     </Row>
 </Keyboard>
 

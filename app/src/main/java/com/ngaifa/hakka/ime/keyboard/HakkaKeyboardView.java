@@ -19,7 +19,7 @@ public class HakkaKeyboardView extends KeyboardView {
     @Override
     protected boolean onLongPress(Key key) {
         // space key
-        if (key.codes[0] == 32) {
+        if (key.codes[0] == -2002) {
             getOnKeyboardActionListener().onKey(CustomKeycode.KEYCODE_SHOW_IME_PICKER, null);
             return true;
         } else {
