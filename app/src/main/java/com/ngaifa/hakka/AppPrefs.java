@@ -14,8 +14,6 @@ public class AppPrefs {
     public static final int INPUT_LOMAJI_MODE_POJ = 1;
     public static final int INPUT_LOMAJI_MODE_APP_DEFAULT = INPUT_LOMAJI_MODE_POJ;
 
-    public static final int INPUT_LOMAJI_MODE_PFS = 2;
-    public static final int INPUT_LOMAJI_MODE_MOE = 3;
 
 //    public static final String PREFS_KEY_HANJI_FONT_TYPE = "PREFS_KEY_HANJI_FONT_TYPE";
 //    public static final int HANJI_FONT_TYPE_SYSTEM_DEFAULT = 0;

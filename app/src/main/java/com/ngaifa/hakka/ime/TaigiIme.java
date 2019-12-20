@@ -75,7 +75,7 @@ public class TaigiIme extends InputMethodService
     private CandidateController mCandidateController;
 
     private int mCurrentInputMode;
-    public int mCurrentInputLomajiMode;
+    private int mCurrentInputLomajiMode;
 
     private StringBuilder mComposing = new StringBuilder();
     private boolean mIsCapsLock;
@@ -182,10 +182,20 @@ public class TaigiIme extends InputMethodService
                 // For all unknown input types, default to the alphabetic
                 // keyboard with no special features.
                 if (mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI) {
-                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+                    }
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY_MOE);
+                    }
                 } else if (mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI) {
-                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
-                } else {
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+                    }
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY_MOE);
+                    }
+                    } else {
                     mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
                 }
         }
@@ -376,9 +386,19 @@ public class TaigiIme extends InputMethodService
                 }
 
                 if (checkedId == R.id.tailoRadioButton) {
-                    setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                    if(mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY_MOE);}
+                    else if (mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY_MOE);}
                 } else if (checkedId == R.id.pojRadioButton) {
-                    setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                    if(mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);}
+                    else if (mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);}
                 } else if (checkedId == R.id.englishRadioButton) {
                     setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_ENGLISH);
                 }
@@ -482,10 +502,22 @@ public class TaigiIme extends InputMethodService
             handleShiftForSwitchKeyboard();
         } else if (primaryCode == CustomKeycode.KEYCODE_SWITCH_TO_HANJI) {
             Prefs.putInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_MODE, AppPrefs.INPUT_MODE_HANJI);
-            mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY_MOE);
+            }else if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ){
+                mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+            }
+            //mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+
         } else if (primaryCode == CustomKeycode.KEYCODE_SWITCH_TO_LOMAJI) {
             Prefs.putInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_MODE, AppPrefs.INPUT_MODE_LOMAJI);
-            mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+                mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY_MOE);
+            } else if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ){
+                mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+            }
+            //mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+
         } /*else if (primaryCode == CustomKeycode.KEYCODE_SETTINGS) {
             handleOpenCloseSettingLayout();
         }*/ else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && mHakkaKeyboardView != null) {
