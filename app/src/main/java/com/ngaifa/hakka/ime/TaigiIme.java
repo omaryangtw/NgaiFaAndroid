@@ -179,6 +179,7 @@ public class TaigiIme extends InputMethodService
 //                break;
 
             default:
+
                 // For all unknown input types, default to the alphabetic
                 // keyboard with no special features.
                 if (mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI) {
@@ -528,7 +529,9 @@ public class TaigiIme extends InputMethodService
             return;
         } else if (primaryCode == CustomKeycode.KEYCODE_SHOW_IME_PICKER) {
             showImePicker();
-        } else {
+        } else if (primaryCode == CustomKeycode.KEYCODE_SYMBOL_SHIFT) {
+            mKeyboardSwitcher.toggleSymbolShift();
+        }else {
             handleCharacter(primaryCode, keyCodes);
         }
 

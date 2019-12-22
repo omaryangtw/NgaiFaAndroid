@@ -98,11 +98,9 @@
 
     <Row>
         <Key
-            android:codes="-1"
-            android:isModifier="true"
-            android:isSticky="true"
+            android:codes="-2002"
             android:keyEdgeFlags="left"
-            android:keyIcon="@drawable/sym_keyboard_shift"
+            android:keyLabel="123"
             android:keyWidth="15%p"/>
         <Key
             android:codes="12308"

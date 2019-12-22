@@ -7,8 +7,6 @@ import androidx.preference.*;
 import com.ngaifa.hakka.AppPrefs;
 import com.ngaifa.hakka.R;
 import com.pixplicity.easyprefs.library.Prefs;
-import com.ngaifa.hakka.ime.TaigiIme;
-
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = SettingsFragment.class.getSimpleName();
@@ -67,6 +65,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                     case "INPUT_LOMAJI_MODE_PFS":
                         //change it back to PFS when finish model design
                         MoreSettingsActivity.setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+
                         break;
                     case "INPUT_LOMAJI_MODE_MOE":
                         //change it back to MOE when finish model design

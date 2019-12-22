@@ -17,9 +17,9 @@ public class KeyboardSwitcher {
     public static final int KEYBOARD_TYPE_LOMAJI_SYMBOL = 2;
     public static final int KEYBOARD_TYPE_LOMAJI_QWERTY_MOE = 6;
     public static final int KEYBOARD_TYPE_HANJI_QWERTY_MOE = 7;
-    private static final int KEYBOARD_TYPE_LOMAJI_SYMBOL_SHIFTED = 3;
-    private static final int KEYBOARD_TYPE_HANJI_SYMBOL = 4;
-    private static final int KEYBOARD_TYPE_HANJI_SYMBOL_SHIFTED = 5;
+    public static final int KEYBOARD_TYPE_LOMAJI_SYMBOL_SHIFTED = 3;
+    public static final int KEYBOARD_TYPE_HANJI_SYMBOL = 4;
+    public static final int KEYBOARD_TYPE_HANJI_SYMBOL_SHIFTED = 5;
 
     private final TaigiIme mTaigiIme;
     private final InputMethodManager mInputMethodManager;
@@ -89,7 +89,21 @@ public class KeyboardSwitcher {
 
         setKeyboard(nextKeyboard);
     }
-
+    public void toggleSymbolShift() {
+        HakkaKeyboard currentKeyboard = (HakkaKeyboard) mHakkaKeyboardView.getKeyboard();
+        HakkaKeyboard nextKeyboard = mLomajiQwertyKeyboard;
+        if (currentKeyboard == mLomajiSymbolsShiftedKeyboard) {
+            nextKeyboard = mLomajiSymbolsKeyboard;
+        } else if (currentKeyboard == mHanjiSymbolsShiftedKeyboard) {
+            nextKeyboard = mHanjiSymbolsKeyboard;
+        }else if (currentKeyboard == mLomajiSymbolsKeyboard) {
+            nextKeyboard = mLomajiSymbolsShiftedKeyboard;
+        } else if (currentKeyboard == mHanjiSymbolsKeyboard) {
+            nextKeyboard = mHanjiSymbolsShiftedKeyboard;
+        }
+        mCurrentKeyboard = nextKeyboard;
+        setKeyboard(nextKeyboard);
+    }
     public void resetKeyboard(HakkaKeyboardView hakkaKeyboardView) {
         mHakkaKeyboardView = hakkaKeyboardView;
         setKeyboard(mCurrentKeyboard);
