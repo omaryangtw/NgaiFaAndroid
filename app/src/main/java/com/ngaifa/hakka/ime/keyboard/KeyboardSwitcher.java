@@ -2,6 +2,7 @@ package com.ngaifa.hakka.ime.keyboard;
 
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.ngaifa.hakka.AppPrefs;
@@ -106,7 +107,32 @@ public class KeyboardSwitcher {
     }
     public void resetKeyboard(HakkaKeyboardView hakkaKeyboardView) {
         mHakkaKeyboardView = hakkaKeyboardView;
-        setKeyboard(mCurrentKeyboard);
+        int mCurrentInputLomajiMode = Prefs.getInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_LOMAJI_MODE_V2, AppPrefs.INPUT_LOMAJI_MODE_APP_DEFAULT);
+        int mCurrentInputMode = Prefs.getInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_MODE, AppPrefs.INPUT_MODE_LOMAJI);
+        String currentKeyboard = null;
+        if(mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI){
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+                currentKeyboard = "Lomaj KIP";
+                setKeyboard(mLomajiQwertyKeyboardMoe);
+            }
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ){
+                currentKeyboard = "Lomaji POJ";
+                setKeyboard(mLomajiQwertyKeyboard);
+            }
+        }
+        if(mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI){
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+                currentKeyboard = "Hanji KIP";
+                setKeyboard(mHanjiQwertyKeyboardMoe);
+            }
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ){
+                currentKeyboard =  "Hanji POJ";
+                setKeyboard(mHanjiQwertyKeyboard);
+            }
+        }
+
+        Log.i("resetKeyboard", "currentKeyboard = "+ currentKeyboard);
+        //setKeyboard(mCurrentKeyboard);
     }
 
     public boolean isCurrentKeyboardViewUseQwertyKeyboard() {

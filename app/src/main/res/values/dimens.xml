@@ -18,7 +18,14 @@
 -->
 
 <resources>
-    <dimen name="taigi_key_height">46dip</dimen>
+    <dimen name="taigi_key_height">5%p</dimen>
+    <dimen name="taigi_key_height_symbol">5.7%p</dimen>
+    <dimen name="taigi_key_width">9%p</dimen>
+    <dimen name="taigi_key_vgap">2%p</dimen>
+    <dimen name="taigi_key_vgap_symbol">2.5%p</dimen>
+    <dimen name="taigi_key_hgap">1%p</dimen>
+
+
 
     <dimen name="candidate_raw_input_font_height">18sp</dimen>
 

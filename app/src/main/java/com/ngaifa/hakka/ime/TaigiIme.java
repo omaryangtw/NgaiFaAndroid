@@ -529,8 +529,8 @@ public class TaigiIme extends InputMethodService
             return;
         } else if (primaryCode == CustomKeycode.KEYCODE_SHOW_IME_PICKER) {
             showImePicker();
-        } else if (primaryCode == CustomKeycode.KEYCODE_SYMBOL_SHIFT) {
-            mKeyboardSwitcher.toggleSymbolShift();
+        } else if (primaryCode == CustomKeycode.KEYCODE_NEXT_IME) {
+            switchToNextIme();
         }else {
             handleCharacter(primaryCode, keyCodes);
         }
@@ -668,6 +668,7 @@ public class TaigiIme extends InputMethodService
     private void updateKeyboardViewShiftIcon() {
         final List<Keyboard.Key> keys = mHakkaKeyboardView.getKeyboard().getKeys();
         final int shiftKeyIndex = mHakkaKeyboardView.getKeyboard().getShiftKeyIndex();
+        Log.i("shiftKeyIndex", "shiftKeyIndex = "+ shiftKeyIndex);
         final Keyboard.Key shiftkey = keys.get(shiftKeyIndex);
         int[] state;
         if (mIsCapsLock) {
@@ -678,8 +679,10 @@ public class TaigiIme extends InputMethodService
                 state = new int[]{android.R.attr.state_pressed};
                 shiftkey.icon.setState(state);
             } else {
-                state = new int[]{android.R.attr.state_empty};
-                shiftkey.icon.setState(state);
+                if(mKeyboardSwitcher.isCurrentKeyboardViewUseQwertyKeyboard()) {
+                    state = new int[]{android.R.attr.state_empty};
+                    shiftkey.icon.setState(state);
+                }
             }
         }
         mHakkaKeyboardView.invalidateKey(shiftKeyIndex);

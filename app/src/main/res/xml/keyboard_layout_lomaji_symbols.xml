@@ -3,13 +3,12 @@
 <!-- http://www.calcresult.com/computing/utilities/keyCodes.html -->
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          android:horizontalGap="0px"
-          android:keyHeight="@dimen/taigi_key_height"
-          android:keyWidth="10%p"
-          android:verticalGap="0px"
-    >
+          android:horizontalGap="@dimen/taigi_key_hgap"
+          android:keyHeight="@dimen/taigi_key_height_symbol"
+          android:keyWidth="@dimen/taigi_key_width"
+          android:verticalGap="@dimen/taigi_key_vgap_symbol">
 
-    <Row>
+    <Row android:rowEdgeFlags="top">
         <Key
             android:codes="49"
             android:keyEdgeFlags="left"
@@ -46,66 +45,67 @@
 
     <Row>
         <Key
-            android:codes="33"
+            android:codes="45"
             android:keyEdgeFlags="left"
-            android:keyLabel="!"/>
+            android:keyLabel="-"/>
         <Key
-            android:codes="64"
-            android:keyLabel="\@"/>
+            android:codes="47"
+            android:keyLabel="/"/>
         <Key
-            android:codes="35"
-            android:keyLabel="\#"/>
+            android:codes="58"
+            android:keyLabel=":"/>
         <Key
-            android:codes="36"
-            android:keyLabel="$"/>
-        <Key
-            android:codes="37"
-            android:keyLabel="%"/>
-        <Key
-            android:codes="94"
-            android:keyLabel="^"/>
-        <Key
-            android:codes="38"
-            android:keyLabel="&amp;"/>
-        <Key
-            android:codes="42"
-            android:keyLabel="*"/>
+            android:codes="59"
+            android:keyLabel=";"/>
         <Key
             android:codes="40"
             android:keyLabel="("/>
         <Key
             android:codes="41"
-            android:keyEdgeFlags="right"
             android:keyLabel=")"/>
+        <Key
+            android:codes="36"
+            android:keyLabel="$"/>
+        <Key
+            android:codes="38"
+            android:keyLabel="&amp;"/>
+        <Key
+            android:codes="64"
+            android:keyLabel="\@"/>
+        <Key
+            android:codes="34"
+            android:keyEdgeFlags="right"
+            android:keyLabel="&quot;"/>
     </Row>
 
     <Row>
         <Key
-            android:codes="-2002"
+            android:codes="-1"
+            android:isModifier="true"
+            android:isSticky="true"
             android:keyEdgeFlags="left"
             android:keyLabel="#+="
             android:keyWidth="15%p"/>
         <Key
+            android:codes="46"
+            android:keyWidth="12.6%p"
+            android:keyLabel=".'"/>
+        <Key
+            android:codes="44"
+            android:keyWidth="12.6%p"
+            android:keyLabel=","/>
+        <Key
+            android:codes="63"
+            android:keyWidth="12.6%p"
+            android:keyLabel="\?"/>
+        <Key
+            android:codes="33"
+            android:keyWidth="12.6%p"
+            android:keyLabel="!"/>
+        <Key
             android:codes="39"
-            android:keyLabel="\'"/>
-        <Key
-            android:codes="34"
-            android:keyLabel="&quot;"/>
-        <Key
-            android:codes="61"
-            android:keyLabel="="/>
-        <Key
-            android:codes="95"
-            android:keyLabel="_"/>
-        <Key
-            android:codes="96"
-            android:keyLabel="`"/>
-        <Key
-            android:codes="58"
-            android:keyLabel=":"/>
-        <Key
-            android:codes="47"
-            android:keyLabel="/"/>
+            android:keyWidth="12.6%p"
+            android:keyLabel="'"/>
         <Key
             android:codes="-5"
             android:isRepeatable="true"
@@ -118,36 +118,21 @@
         <Key
             android:codes="-2"
             android:keyEdgeFlags="left"
-            android:keyLabel="轉去"
-            android:keyWidth="13%p"/>
+            android:keyLabel="羅馬字"
+            android:keyWidth="15%p"/>
         <Key
-            android:codes="59"
-            android:keyLabel=";"
-            android:keyWidth="10%p"/>
-        <!--
-            android:codes: -2000 is not a framework-defined key code
-        -->
-        <Key
-            android:codes="-2000"
-            android:keyLabel="設定"
-            android:keyWidth="12%p"/>
+                android:codes="-2003"
+                android:keyLabel="T"
+                android:keyWidth="10%p"/>
         <Key
             android:codes="32"
             android:isRepeatable="true"
             android:keyIcon="@drawable/btn_keyboard_spacebar_lxx_dark"
-            android:keyWidth="30%p"/>
-        <Key
-            android:codes="44"
-            android:keyLabel=","
-            android:keyWidth="10%p"/>
-        <Key
-            android:codes="46"
-            android:keyLabel="."
-            android:keyWidth="10%p"/>
+            android:keyWidth="46%p"/>
         <Key
             android:codes="10"
             android:keyEdgeFlags="right"
             android:keyIcon="@drawable/sym_keyboard_return"
-            android:keyWidth="15%p"/>
+            android:keyWidth="25%p"/>
     </Row>
 </Keyboard>

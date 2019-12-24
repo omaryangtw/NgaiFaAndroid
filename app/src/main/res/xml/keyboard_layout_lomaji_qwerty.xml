@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          android:horizontalGap="5dp"
+          android:horizontalGap="@dimen/taigi_key_hgap"
           android:keyHeight="@dimen/taigi_key_height"
-          android:keyWidth="8.5%p"
-          android:verticalGap="10dp">
+          android:keyWidth="@dimen/taigi_key_width"
+          android:verticalGap="@dimen/taigi_key_vgap">
 
     <Row android:rowEdgeFlags="top">
         <Key
@@ -98,7 +98,6 @@
     <Row>
         <Key
             android:codes="97"
-            android:horizontalGap="5%p"
             android:keyEdgeFlags="left"
             android:keyLabel="a"
             />
@@ -133,6 +132,10 @@
         <Key
             android:codes="108"
             android:keyLabel="l"
+            />
+        <Key
+            android:codes="7795"
+            android:keyLabel="ṳ"
             android:keyEdgeFlags="right"
             />
 <!--        <Key
@@ -150,7 +153,7 @@
             android:isSticky="true"
             android:keyEdgeFlags="left"
             android:keyIcon="@drawable/dark_key_shift_set"
-            android:keyWidth="15%p"/>
+            android:keyWidth="14%p"/>
         <Key
             android:codes="122"
             android:keyLabel="z"
@@ -184,15 +187,15 @@
             android:isRepeatable="true"
             android:keyEdgeFlags="right"
             android:keyIcon="@drawable/sym_keyboard_delete_lxx_dark"
-            android:keyWidth="15%p"/>
+            android:keyWidth="14%p"/>
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
         <Key
-            android:codes="-2"
-            android:keyEdgeFlags="left"
-            android:keyLabel="123"
-            android:keyWidth="13%p"/>
+                android:codes="-2"
+                android:keyEdgeFlags="left"
+                android:keyLabel="123"
+                android:keyWidth="10%p"/>
         <!--
         <Key
             android:codes="33"
@@ -202,27 +205,23 @@
              android:codes: -1001 is not a framework-defined key code
         -->
         <Key
-            android:codes="-1001"
-            android:keyLabel="LMJ"
-            android:keyWidth="12%p"/>
+                android:codes="-1001"
+                android:keyLabel="羅"
+                android:keyWidth="10%p"/>
         <Key
-            android:codes="32"
-            android:isRepeatable="false"
-            android:keyIcon="@drawable/btn_keyboard_spacebar_lxx_dark"
-            android:keyWidth="30%p"/>
+                android:codes="-2003"
+                android:keyLabel="T"
+                android:keyWidth="10%p"/>
         <Key
-            android:codes="44"
-            android:keyLabel=","
-            />
+                android:codes="32"
+                android:isRepeatable="true"
+                android:keyIcon="@drawable/btn_keyboard_spacebar_lxx_dark"
+                android:keyWidth="40%p"/>
         <Key
-            android:codes="46"
-            android:keyLabel="."
-            />
-        <Key
-            android:codes="10"
-            android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/sym_keyboard_return"
-            android:keyWidth="15%p"/>
+                android:codes="10"
+                android:keyEdgeFlags="right"
+                android:keyIcon="@drawable/sym_keyboard_return"
+                android:keyWidth="25%p"/>
     </Row>
 </Keyboard>
 
