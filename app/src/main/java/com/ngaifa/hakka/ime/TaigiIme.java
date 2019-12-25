@@ -723,8 +723,8 @@ public class TaigiIme extends InputMethodService
 
     private boolean isDirectlySendKeyWhenOnlyInputNumbers(int primaryCode) {
         if (mComposing.length() == 0) {
-            // 1~9
-            if (primaryCode >= 49 && primaryCode <= 57) {
+            // 0~9
+            if (primaryCode >= 48 && primaryCode <= 57) {
                 return true;
             }
         }
@@ -840,28 +840,28 @@ public class TaigiIme extends InputMethodService
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        switchToNextIme();
+        //switchToNextIme();
     }
 
     public void swipeLeft() {
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        showImePicker();
+        //showImePicker();
     }
 
     public void swipeDown() {
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        handleClose();
+        //handleClose();
     }
 
     public void swipeUp() {
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        handleOpenCloseSettingLayout();
+        //handleOpenCloseSettingLayout();
     }
 
     public void onPress(int primaryCode) {

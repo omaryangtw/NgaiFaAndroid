@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
-    <color name="colorAccent">#3F51B5</color>
+    <color name="colorPrimary">#333</color>
+    <color name="colorPrimaryDark">#333</color>
+    <color name="colorAccent">#333</color>
 
-    <color name="key_normal_background_dark">#7fff</color>
+    <color name="key_normal_background_dark">#333</color>
     <color name="key_normal_background">#9fff</color>
     <color name="key_pressed_background">#ff666666</color>
 
@@ -18,9 +18,9 @@
     <color name="key_background_lxx_dark_lighter">#384450</color>
 
     <color name="candidate_normal">#bbb</color>
-    <color name="candidate_recommended">#afd4b3</color>
+    <color name="candidate_recommended">#333</color>
     <color name="candidate_other">#ff808080</color>
-    <color name="candidate_background">#324048</color>
+    <color name="candidate_background">#D6D9DE</color>
 
     <color name="mal_color_primary">#4b8308</color>
 </resources>

@@ -44,10 +44,10 @@
             android:keyLabel="9"
             />
         <Key
-            android:codes="45"
-            android:keyEdgeFlags="right"
-            android:keyLabel="-"
-            />
+                android:codes="48"
+                android:keyEdgeFlags="right"
+                android:keyLabel="0"
+                />
     </Row>
 
     <Row>
@@ -186,7 +186,7 @@
             android:codes="-5"
             android:isRepeatable="true"
             android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/sym_keyboard_delete_lxx_dark"
+            android:keyIcon="@drawable/delete"
             android:keyWidth="14%p"/>
     </Row>
 
@@ -220,7 +220,7 @@
         <Key
                 android:codes="10"
                 android:keyEdgeFlags="right"
-                android:keyIcon="@drawable/sym_keyboard_return"
+                android:keyIcon="@drawable/enter"
                 android:keyWidth="25%p"/>
     </Row>
 </Keyboard>
