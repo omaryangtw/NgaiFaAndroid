@@ -125,7 +125,7 @@
             android:keyWidth="15%p"/>
         <Key
                 android:codes="-2003"
-                android:keyLabel="T"
+                android:keyIcon="@drawable/globe"
                 android:keyWidth="10%p"/>
         <Key
             android:codes="32"

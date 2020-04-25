@@ -53,16 +53,16 @@ public class ImePreferences extends AppCompatActivity{
 
     @BindView(R.id.step1Button)
     Button mStep1Button;
+    /*
+        @BindView(R.id.step2Button)
+        Button mStep2Button;
 
-    @BindView(R.id.step2Button)
-    Button mStep2Button;
+        @BindView(R.id.otherSettingButton)
+        Button mOtherSettingButton;
 
-    @BindView(R.id.otherSettingButton)
-    Button mOtherSettingButton;
-
-    @BindView(R.id.feedbackButton)
-    Button mFeedbackButton;
-
+        @BindView(R.id.feedbackButton)
+        Button mFeedbackButton;
+    */
     private Context mBaseContext = null;
     private Intent mReLaunchTaskIntent = null;
     private Context mAppContext;
@@ -125,7 +125,7 @@ public class ImePreferences extends AppCompatActivity{
         startSettings.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(startSettings);
     }
-
+/*
     @OnClick(R.id.step2Button)
     void onClickStep2Button() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -142,7 +142,7 @@ public class ImePreferences extends AppCompatActivity{
         Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/groups/PhahTaigiApp/"));
         startActivity(myIntent);
     }
-
+*/
 
     @SuppressWarnings("HandlerLeak"/*I want this fragment to stay in memory as long as possible*/)
     private Handler mGetBackHereHandler = new Handler() {

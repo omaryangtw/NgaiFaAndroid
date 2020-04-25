@@ -35,50 +35,18 @@
         </activity>
         <activity
                 android:name=".preferences.SettingsActivity"
-                android:label="@string/action_settings"
                 android:parentActivityName=".preferences.ImePreferences">
-
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".preferences.ImePreferences"/>
         </activity>
-        <activity
-            android:name=".about.AboutActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".about.SponsorActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".preferences.MoreSettingsActivity"
-            android:label="@string/settings_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
-        <service
-                android:name="parser.parser.input.KipParseIntentService"
-                android:exported="false"/>
-
-        <activity android:name=".parser.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
 
-
+        <!--
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="${enableCrashReporting}" />
+        -->
     </application>
 
 </manifest>

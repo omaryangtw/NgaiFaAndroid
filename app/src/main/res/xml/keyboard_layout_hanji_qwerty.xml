@@ -210,7 +210,7 @@
                 android:keyWidth="10%p"/>
         <Key
                 android:codes="-2003"
-                android:keyIcon="@drawable/earth_grid_symbol"
+                android:keyIcon="@drawable/globe"
                 android:keyWidth="10%p"/>
         <Key
                 android:codes="32"

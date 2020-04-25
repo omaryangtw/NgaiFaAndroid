@@ -29,17 +29,18 @@
 
     <dimen name="candidate_raw_input_font_height">18sp</dimen>
 
-    <dimen name="candidate_main_font_lomaji_height">24sp</dimen>
-    <dimen name="candidate_hint_font_hanji_height">14sp</dimen>
+    <dimen name="candidate_main_font_lomaji_height">18sp</dimen>
+    <dimen name="candidate_hint_font_hanji_height">16sp</dimen>
 
-    <dimen name="candidate_main_font_hanji_height">26sp</dimen>
-    <dimen name="candidate_hint_font_lomaji_height">14sp</dimen>
+    <dimen name="candidate_main_font_hanji_height">18sp</dimen>
+    <dimen name="candidate_hint_font_lomaji_height">16sp</dimen>
 
     <dimen name="candidate_vertical_padding">6sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="prefs_width">80%p</dimen>
 
 
 </resources>

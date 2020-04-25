@@ -11,11 +11,9 @@
 
     <string-array name="dialect">
         <item>四縣</item>
-        <item>海陸</item>
     </string-array>
     <string-array name="dialect_values">
         <item>sixian</item>
-        <item>hilou</item>
     </string-array>
 
     <string-array name="system">

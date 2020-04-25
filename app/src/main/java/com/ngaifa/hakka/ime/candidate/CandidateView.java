@@ -60,7 +60,7 @@ public class CandidateView extends View {
     private int mTouchX = OUT_OF_BOUNDS;
     private Drawable mSelectionHighlightDrawable;
 
-    private Rect mPadding = new Rect(10, 10, 10, 10);
+    private Rect mPadding = new Rect(10, 4, 10, 10);
     private Rect mBgPadding;
 
     private int mMeasuredWidth;
@@ -90,7 +90,7 @@ public class CandidateView extends View {
     private StoppableRunnable mLongTouchTask = new StoppableRunnable() {
         @Override
         public void stoppableRun() {
-            onLongTouched();
+            //onLongTouched();
         }
     };
 
@@ -175,8 +175,8 @@ public class CandidateView extends View {
         //noinspection deprecation
         mColorRecommended = resources.getColor(R.color.candidate_recommended);
 
-        mLomajiTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/TauhuOo-Regular.otf");
-        mHanjiTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/TauhuOo-Regular.otf");
+        mLomajiTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/jf-openhuninn-1.0.otf");
+        mHanjiTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/jf-openhuninn-1.0.otf");
 //        final int hanjiType = Prefs.getInt(AppPrefs.PREFS_KEY_HANJI_FONT_TYPE, HANJI_FONT_TYPE_APP_DEFAULT);
 //        if (hanjiType == AppPrefs.HANJI_FONT_TYPE_MINGLIUB) {
 //            mHanjiTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/mingliub.ttc");
@@ -206,9 +206,8 @@ public class CandidateView extends View {
         mSuggestionsMainFirstLomajiPaint.setTypeface(mLomajiTypeface);
         final Paint.FontMetrics suggestionsMainFirstLomajiPaintFontMetrics = mSuggestionsMainFirstLomajiPaint.getFontMetrics();
         mMainSuggestionFirstLomajiHeightForPaint = mRawInputPaintHeight - suggestionsMainFirstLomajiPaintFontMetrics.top + Y_GAP_BETWEEN_MAIN_SUGGESTION_AND_HINT_SUGGESTION;
-
         mWordSeperatorLinePaint = new Paint();
-        mWordSeperatorLinePaint.setColor(mColorNormal);
+        mWordSeperatorLinePaint.setColor(mColorRecommended);
         mWordSeperatorLinePaint.setAntiAlias(true);
         mWordSeperatorLinePaint.setStrokeWidth(0);
 
@@ -230,7 +229,7 @@ public class CandidateView extends View {
         final Paint.FontMetrics suggestionsMainPaintFontMetrics = mSuggestionsMainPaint.getFontMetrics();
         mSuggestionsMainTextHeight = suggestionsMainPaintFontMetrics.bottom - suggestionsMainPaintFontMetrics.top + suggestionsMainPaintFontMetrics.leading;
 
-        mMainSuggestionHeightForPaint = mRawInputPaintHeight - suggestionsMainPaintFontMetrics.top + Y_GAP_BETWEEN_MAIN_SUGGESTION_AND_HINT_SUGGESTION + suggestionsMainPaintFontMetrics.leading;
+        mMainSuggestionHeightForPaint = /*mRawInputPaintHeight */2*Y_GAP_BETWEEN_RAW_INPUT_AND_SUGGESTIONS-suggestionsMainPaintFontMetrics.top + Y_GAP_BETWEEN_MAIN_SUGGESTION_AND_HINT_SUGGESTION + suggestionsMainPaintFontMetrics.leading;
 
         mSuggestionsHintPaint = new Paint();
         mSuggestionsHintPaint.setColor(mColorRecommended);
@@ -246,12 +245,12 @@ public class CandidateView extends View {
         final Paint.FontMetrics suggestionsHintPaintFontMetrics = mSuggestionsHintPaint.getFontMetrics();
         mSuggestionsHintTextHeight = suggestionsHintPaintFontMetrics.bottom - suggestionsHintPaintFontMetrics.top + suggestionsHintPaintFontMetrics.leading;
 
-        mHintSuggestionHeightForPaint = mRawInputPaintHeight + Y_GAP_BETWEEN_RAW_INPUT_AND_SUGGESTIONS + mSuggestionsMainTextHeight
+        mHintSuggestionHeightForPaint = /*mRawInputPaintHeight + */2*Y_GAP_BETWEEN_RAW_INPUT_AND_SUGGESTIONS + mSuggestionsMainTextHeight
                 - suggestionsHintPaintFontMetrics.top + Y_GAP_BETWEEN_MAIN_SUGGESTION_AND_HINT_SUGGESTION + suggestionsHintPaintFontMetrics.leading;
 
-        mWordSeperatorLineYForPaint = mRawInputPaintHeight + Y_GAP_BETWEEN_RAW_INPUT_AND_SUGGESTIONS + suggestionsHintPaintFontMetrics.bottom;
+        mWordSeperatorLineYForPaint = /*mRawInputPaintHeight + */2*Y_GAP_BETWEEN_RAW_INPUT_AND_SUGGESTIONS + suggestionsHintPaintFontMetrics.bottom;
 
-        mDesiredHeight = (int) (mRawInputPaintHeight
+        mDesiredHeight = (int) (/*mRawInputPaintHeight*/
                 + Y_GAP_BETWEEN_RAW_INPUT_AND_SUGGESTIONS
                 + mSuggestionsMainTextHeight
                 + Y_GAP_BETWEEN_MAIN_SUGGESTION_AND_HINT_SUGGESTION
@@ -295,7 +294,7 @@ public class CandidateView extends View {
             super.onDraw(canvas);
         }
 
-        drawRawInput(canvas);
+        //drawRawInput(canvas);
         drawSuggestions(canvas);
     }
 
@@ -377,7 +376,7 @@ public class CandidateView extends View {
             final float hintTextWidth = mSuggestionsHintPaint.measureText(hintCandidate);
             final int mainWordWidth = (int) mainTextWidth;
             final int hintWordWidth = (int) hintTextWidth;
-            final int wordWidth = (mainWordWidth > hintWordWidth ? mainWordWidth : hintWordWidth);
+            final int wordWidth = (Math.max(mainWordWidth, hintWordWidth));
             int fullWordWidth = wordWidth + X_GAP * 2;
             if (fullWordWidth < MIN_WORD_WIDTH) {
                 fullWordWidth = MIN_WORD_WIDTH;
@@ -411,19 +410,19 @@ public class CandidateView extends View {
                     fullFirstLomajiWidth = MIN_WORD_WIDTH;
                 }
                 canvas.drawLine(x + fullFirstLomajiWidth, mWordSeperatorLineYForPaint,
-                        x + fullFirstLomajiWidth, mWordSeperatorLineYForPaint + fullWordHeight, mWordSeperatorLinePaint);
+                        x + fullFirstLomajiWidth, mWordSeperatorLineYForPaint + fullWordHeight - 30, mWordSeperatorLinePaint);
 
                 x += fullFirstLomajiWidth;
             } else {
                 // draw main candidate
-                canvas.drawText(mainCandidate, x + X_GAP, mMainSuggestionHeightForPaint, mSuggestionsMainPaint);
+                canvas.drawText(mainCandidate, x + X_GAP+ (float)(fullWordWidth-mainWordWidth)/2 -15, mMainSuggestionHeightForPaint, mSuggestionsMainPaint);
 
                 // draw hint candidate
-                canvas.drawText(hintCandidate, x + X_GAP, mHintSuggestionHeightForPaint, mSuggestionsHintPaint);
+                canvas.drawText(hintCandidate, x + X_GAP+ (float)(fullWordWidth-hintWordWidth)/2 -15, mHintSuggestionHeightForPaint, mSuggestionsHintPaint);
 
                 // draw line between words
-                canvas.drawLine(x + fullWordWidth, mWordSeperatorLineYForPaint,
-                        x + fullWordWidth, mWordSeperatorLineYForPaint + fullWordHeight, mWordSeperatorLinePaint);
+                canvas.drawLine(x + fullWordWidth, mWordSeperatorLineYForPaint+5,
+                        x + fullWordWidth, mWordSeperatorLineYForPaint + fullWordHeight-5, mWordSeperatorLinePaint);
 
                 x += fullWordWidth;
             }
