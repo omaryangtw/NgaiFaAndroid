@@ -530,10 +530,12 @@ public class CandidateController {
 
         if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
             mRawInputSuggestion = KiplmjInputConverter.INSTANCE.convertTailoNumberRawInputToTailoWords(mRawInput);
+            Log.d(TAG, "mRawInputSuggestion="+mRawInputSuggestion);
             mInputImeDict.setKiplmj(mRawInputSuggestion);
             mInputImeDict.setPoj("");
         } else if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
             mRawInputSuggestion = PojInputConverter.INSTANCE.convertPojNumberRawInputToPojWords(mRawInput);
+            Log.d(TAG, "mRawInputSuggestion="+mRawInputSuggestion);
             mInputImeDict.setPoj(mRawInputSuggestion);
             mInputImeDict.setKiplmj("");
         }
@@ -572,19 +574,21 @@ public class CandidateController {
                 .replaceAll("1|4", "")
                 .replaceAll("6", "2");
 */
-
         String search = mRawInput.toLowerCase();
+        /*
         if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
             search = search.replaceAll("[46]","");
         }else if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
             search = search.replaceAll("[45]","");
         }
 
+         */
+        Log.d(TAG, "search:"+search);
 
 
         if (!search.matches(".*\\d+.*")) {
-            mIsSetQueryLimit = true;
-
+            mIsSetQueryLimit = false;
+            Log.d(TAG, "WithoutTone,search:"+search);
             if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
                 mImeDicts = mRealm.where(ImeDict.class)
                         .beginsWith("kiplmjInputWithoutTone", search)
@@ -616,31 +620,28 @@ public class CandidateController {
             }
         }
 
-        mImeDicts.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<ImeDict>>() {
-            @Override
-            public void onChange(RealmResults<ImeDict> imeDicts, OrderedCollectionChangeSet orderedCollectionChangeSet) {
-                if (TextUtils.isEmpty(mRawInput)) {
-                    return;
-                }
+        mImeDicts.addChangeListener((imeDicts, orderedCollectionChangeSet) -> {
+            if (TextUtils.isEmpty(mRawInput)) {
+                return;
+            }
 
-                int count = imeDicts.size();
+            int count = imeDicts.size();
 
-                if (BuildConfig.DEBUG_LOG) {
-                    Log.w(TAG, "handleQueryResults: count = " + count);
-                }
+            if (BuildConfig.DEBUG_LOG) {
+                Log.w(TAG, "handleQueryResults: count = " + count);
+            }
 
-                if (mIsSetQueryLimit && count > QUERY_LIMIT_100) {
-                    count = QUERY_LIMIT_100;
-                }
+            if (mIsSetQueryLimit && count > QUERY_LIMIT_100) {
+                count = QUERY_LIMIT_100;
+            }
 
 //                for (ImeDict imeDict : mImeDicts) {
 //                    Log.d(TAG, "tailo = " + imeDict.getTailo() + ", hanji = " + imeDict.getHanji());
 //                }
 
-                ArrayList<ImeDict> mutableArrayList = new ArrayList<>(mRealm.copyFromRealm(imeDicts.subList(0, count)));
+            ArrayList<ImeDict> mutableArrayList = new ArrayList<>(mRealm.copyFromRealm(imeDicts.subList(0, count)));
 
-                handleQueryResultsAsync(mutableArrayList);
-            }
+            handleQueryResultsAsync(mutableArrayList);
         });
     }
 
@@ -648,15 +649,12 @@ public class CandidateController {
         handleQueryResults(mutableArrayList, mCurrentInputLomajiMode, mRawInput)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<ArrayList<ImeDict>>() {
-                    @Override
-                    public void accept(ArrayList<ImeDict> imeDicts) throws Exception {
-                        mCandidateImeDicts.clear();
-                        mCandidateImeDicts.addAll(imeDicts);
-                        mCandidateImeDicts.add(0, mInputImeDict);
+                .doOnNext(imeDicts -> {
+                    mCandidateImeDicts.clear();
+                    mCandidateImeDicts.addAll(imeDicts);
+                    mCandidateImeDicts.add(0, mInputImeDict);
 
-                        mCandidateView.setSuggestions(mRawInput, mCandidateImeDicts, mCurrentInputLomajiMode);
-                    }
+                    mCandidateView.setSuggestions(mRawInput, mCandidateImeDicts, mCurrentInputLomajiMode);
                 })
                 .subscribe();
     }
