@@ -574,20 +574,18 @@ public class CandidateController {
                 .replaceAll("1|4", "")
                 .replaceAll("6", "2");
 */
+
         String search = mRawInput.toLowerCase();
-        /*
         if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
             search = search.replaceAll("[46]","");
         }else if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
             search = search.replaceAll("[45]","");
         }
-
-         */
         Log.d(TAG, "search:"+search);
 
 
         if (!search.matches(".*\\d+.*")) {
-            mIsSetQueryLimit = false;
+            mIsSetQueryLimit = true;
             Log.d(TAG, "WithoutTone,search:"+search);
             if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
                 mImeDicts = mRealm.where(ImeDict.class)
@@ -608,11 +606,13 @@ public class CandidateController {
             mIsSetQueryLimit = false;
 
             if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+                Log.d(TAG, "mCurrentInputLomajiMode" + mCurrentInputLomajiMode+ "WithTone,search:"+search);
                 mImeDicts = mRealm.where(ImeDict.class)
                         .beginsWith("kiplmjInputWithNumberTone", search)
                         .sort("kiplmjPriority", Sort.ASCENDING)
                         .findAllAsync();
             } else if (mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+                Log.d(TAG, "mCurrentInputLomajiMode" + mCurrentInputLomajiMode+ "WithTone,search:"+search);
                 mImeDicts = mRealm.where(ImeDict.class)
                         .beginsWith("pojInputWithNumberTone", search)
                         .sort("pojPriority", Sort.ASCENDING)

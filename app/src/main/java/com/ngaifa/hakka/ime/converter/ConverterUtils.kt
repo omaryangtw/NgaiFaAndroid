@@ -2,6 +2,7 @@ package com.ngaifa.hakka.ime.converter
 
 import com.ngaifa.hakka.AppPrefs
 import com.pixplicity.easyprefs.library.Prefs
+import android.util.Log
 
 object ConverterUtils {
 
@@ -42,6 +43,7 @@ object ConverterUtils {
 }
 
     private fun findCorrectNumberIndex(lomajiNumber: String): Int {
+        val TAG = PojInputConverter::class.java.simpleName
         var foundNumberIndex = -1
 
         val count = lomajiNumber.length
@@ -53,7 +55,7 @@ object ConverterUtils {
                 break
             }
         }
-
+        Log.d(TAG, "findCorrectNumberIndex:"+foundNumberIndex)
         return foundNumberIndex
     }
 

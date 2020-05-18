@@ -18,22 +18,29 @@
 -->
 
 <resources>
-    <dimen name="taigi_key_height">41dip</dimen>
-    <dimen name="symbol_key_height">50dip</dimen>
+    <dimen name="taigi_key_height">5%p</dimen>
+    <dimen name="taigi_key_height_symbol">5.7%p</dimen>
+    <dimen name="taigi_key_width">9%p</dimen>
+    <dimen name="taigi_key_vgap">2%p</dimen>
+    <dimen name="taigi_key_vgap_symbol">2.5%p</dimen>
+    <dimen name="taigi_key_hgap">1%p</dimen>
+
+
 
     <dimen name="candidate_raw_input_font_height">18sp</dimen>
 
-    <dimen name="candidate_main_font_lomaji_height">24sp</dimen>
-    <dimen name="candidate_hint_font_hanji_height">14sp</dimen>
+    <dimen name="candidate_main_font_lomaji_height">18sp</dimen>
+    <dimen name="candidate_hint_font_hanji_height">16sp</dimen>
 
-    <dimen name="candidate_main_font_hanji_height">26sp</dimen>
-    <dimen name="candidate_hint_font_lomaji_height">14sp</dimen>
+    <dimen name="candidate_main_font_hanji_height">18sp</dimen>
+    <dimen name="candidate_hint_font_lomaji_height">16sp</dimen>
 
     <dimen name="candidate_vertical_padding">6sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="prefs_width">80%p</dimen>
 
 
 </resources>

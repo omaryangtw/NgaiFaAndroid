@@ -21,14 +21,15 @@
     <string name="label_subtype_taigi">Hakka (TW)</string>
     <string name="spacekey_text"> </string>
 
-    <string name="activity_start_step_one">頭一步：</string>
-    <string name="activity_start_step_one_desc">Tī系統設定內底ê『語言與輸入設定』，kā「PhahTaigi 台語輸入法」切做ē-sái使用。</string>
-    <string name="activity_start_step_one_button">Kā輸入法開--起-來</string>
-    <string name="activity_start_step_two">第二步：</string>
-    <string name="activity_start_step_two_desc">Tī切換輸入法ê所在，kéng「PhahTaigi 台語輸入法」。</string>
-    <string name="activity_start_step_two_button">選PhahTaigi 台語輸入法</string>
-    <string name="activity_start_step_three">第三步：</string>
-    <string name="activity_start_step_three_desc">去ē-sái phah字ê所在開始phah字，輸入法就ē出現！</string>
+    <string name="activity_start_step_one"></string>
+    <string name="activity_start_step_one_desc">需先啟用鍵盤才能使用輸入法</string>
+    <string name="activity_start_step_one_button">管理鍵盤</string>
+    <string name="setting_position">輸入法設定的位置在App的右上角</string>
+    <string name="activity_start_step_two"></string>
+    <string name="activity_start_step_two_desc"></string>
+    <string name="activity_start_step_two_button"></string>
+    <string name="activity_start_step_three"></string>
+    <string name="activity_start_step_three_desc"></string>
     <string name="activity_start_more_setting_button">其他設定</string>
     <string name="activity_start_feedback_button">問題kap建議</string>
     <string name="activity_start_button_finish">完成！</string>

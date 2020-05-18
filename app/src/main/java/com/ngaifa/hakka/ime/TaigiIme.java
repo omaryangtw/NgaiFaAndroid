@@ -163,14 +163,40 @@ public class TaigiIme extends InputMethodService
                 mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_SYMBOL);
                 break;
 
+//            case InputType.TYPE_CLASS_TEXT:
+//                // This is general text editing.  We will default to the
+//                // normal alphabetic keyboard, and assume that we should
+//                // be doing predictive text (showing candidates as the
+//                // user types).
+//                if (mCurrentInputMode == INPUT_MODE_LOMAJI) {
+//                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+//                } else if (mCurrentInputMode == INPUT_MODE_HANJI) {
+//                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+//                } else {
+//                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+//                }
+//                updateShiftKeyState(attribute);
+//                break;
+
             default:
+
                 // For all unknown input types, default to the alphabetic
                 // keyboard with no special features.
                 if (mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI) {
-                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+                    }
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY_MOE);
+                    }
                 } else if (mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI) {
-                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
-                } else {
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ) {
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+                    }
+                    if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY_MOE);
+                    }
+                    } else {
                     mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
                 }
         }
@@ -361,9 +387,19 @@ public class TaigiIme extends InputMethodService
                 }
 
                 if (checkedId == R.id.tailoRadioButton) {
-                    setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                    if(mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY_MOE);}
+                    else if (mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY_MOE);}
                 } else if (checkedId == R.id.pojRadioButton) {
-                    setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                    if(mCurrentInputMode == AppPrefs.INPUT_MODE_LOMAJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);}
+                    else if (mCurrentInputMode == AppPrefs.INPUT_MODE_HANJI){
+                        setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_POJ);
+                        mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);}
                 } else if (checkedId == R.id.englishRadioButton) {
                     setCurrentInputLomajiMode(AppPrefs.INPUT_LOMAJI_MODE_ENGLISH);
                 }
@@ -467,10 +503,22 @@ public class TaigiIme extends InputMethodService
             handleShiftForSwitchKeyboard();
         } else if (primaryCode == CustomKeycode.KEYCODE_SWITCH_TO_HANJI) {
             Prefs.putInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_MODE, AppPrefs.INPUT_MODE_HANJI);
-            mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ) {
+                    mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY_MOE);
+            }else if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ){
+                mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+            }
+            //mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_HANJI_QWERTY);
+
         } else if (primaryCode == CustomKeycode.KEYCODE_SWITCH_TO_LOMAJI) {
             Prefs.putInt(AppPrefs.PREFS_KEY_CURRENT_INPUT_MODE, AppPrefs.INPUT_MODE_LOMAJI);
-            mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+            if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_KIPLMJ){
+                mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY_MOE);
+            } else if(mCurrentInputLomajiMode == AppPrefs.INPUT_LOMAJI_MODE_POJ){
+                mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+            }
+            //mKeyboardSwitcher.setKeyboardByType(KeyboardSwitcher.KEYBOARD_TYPE_LOMAJI_QWERTY);
+
         } /*else if (primaryCode == CustomKeycode.KEYCODE_SETTINGS) {
             handleOpenCloseSettingLayout();
         }*/ else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE && mHakkaKeyboardView != null) {
@@ -614,12 +662,13 @@ public class TaigiIme extends InputMethodService
         }
 
         // update icon
-        //updateKeyboardViewShiftIcon();
+        updateKeyboardViewShiftIcon();
     }
 
     private void updateKeyboardViewShiftIcon() {
         final List<Keyboard.Key> keys = mHakkaKeyboardView.getKeyboard().getKeys();
         final int shiftKeyIndex = mHakkaKeyboardView.getKeyboard().getShiftKeyIndex();
+        Log.i("shiftKeyIndex", "shiftKeyIndex = "+ shiftKeyIndex);
         final Keyboard.Key shiftkey = keys.get(shiftKeyIndex);
         int[] state;
         if (mIsCapsLock) {
@@ -630,8 +679,10 @@ public class TaigiIme extends InputMethodService
                 state = new int[]{android.R.attr.state_pressed};
                 shiftkey.icon.setState(state);
             } else {
-                state = new int[]{android.R.attr.state_empty};
-                shiftkey.icon.setState(state);
+                if(mKeyboardSwitcher.isCurrentKeyboardViewUseQwertyKeyboard()) {
+                    state = new int[]{android.R.attr.state_empty};
+                    shiftkey.icon.setState(state);
+                }
             }
         }
         mHakkaKeyboardView.invalidateKey(shiftKeyIndex);
@@ -672,7 +723,7 @@ public class TaigiIme extends InputMethodService
 
     private boolean isDirectlySendKeyWhenOnlyInputNumbers(int primaryCode) {
         if (mComposing.length() == 0) {
-            // 1~9
+            // 0~9
             if (primaryCode >= 48 && primaryCode <= 57) {
                 return true;
             }
@@ -785,33 +836,33 @@ public class TaigiIme extends InputMethodService
 //        return getCurrentInputConnection().getExtractedText(new ExtractedTextRequest(), 0).selectionEnd;
 //    }
 
-    public void swipeRight() {/*
+    public void swipeRight() {
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        switchToNextIme();
-    */}
-
-    public void swipeLeft() {/*
-        if (mIsVibration) {
-            mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
-        }
-        showImePicker();
-    */}
-
-    public void swipeDown() {/*
-        if (mIsVibration) {
-            mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
-        }
-       */ handleClose();
+        //switchToNextIme();
     }
 
-    public void swipeUp() {/*
+    public void swipeLeft() {
         if (mIsVibration) {
             mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
         }
-        handleOpenCloseSettingLayout();
-    */}
+        //showImePicker();
+    }
+
+    public void swipeDown() {
+        if (mIsVibration) {
+            mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
+        }
+        //handleClose();
+    }
+
+    public void swipeUp() {
+        if (mIsVibration) {
+            mVibrator.vibrate(KEY_VIBRATION_MILLISECONDS);
+        }
+        //handleOpenCloseSettingLayout();
+    }
 
     public void onPress(int primaryCode) {
     }
